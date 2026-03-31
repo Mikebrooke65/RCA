@@ -15,9 +15,14 @@
 1. [x] Wire member portal to authenticated user session
 2. [x] Add route protection (redirect to /login if not authenticated)
 3. [x] Add logout button to header/nav
-4. [ ] Fix email service (verify domain in Resend for production)
-5. [ ] Test Friend membership application flow
-6. [ ] Set up Stripe CLI for local webhook testing
+4. [ ] Fix email service - configure custom SMTP in Supabase once domain active
+5. [ ] Customise Supabase email templates (invite, password reset) to look like RCA emails
+6. [x] Test Friend membership application flow
+7. [x] Auto-approve Full Members when address validates
+8. [ ] Test full auto-approval flow end to end
+9. [ ] Set up Stripe CLI for local webhook testing
+10. [ ] Free up disk space on dev machine (currently at 0GB!)
+11. [ ] Deploy to Netlify once domain active
 
 ## Phase 1: Core Application Flow ✅ COMPLETE
 - [x] Build application form (Full Member + Friend)

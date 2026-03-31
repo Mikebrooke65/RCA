@@ -65,7 +65,30 @@ All notable changes to this project will be documented in this file.
 - Git ignore file
 - Deployment guide (DEPLOYMENT.md)
 
-### Session 3 - 2026-03-31
+### Session 4 - 2026-03-31 (Continued)
+
+#### Auto-Approval Flow
+- Full Members with validated Riverhead address now auto-approved on submission
+- Supabase `inviteUserByEmail()` called automatically on approval
+- Payment link (Stripe checkout) generated and shown on success screen
+- Friends remain in admin approval queue
+- Apply page rewritten with proper success screen (no alert() popups)
+- Different success messages for auto-approved vs pending applications
+
+#### Admin Applications Page
+- Removed browser confirm() popup
+- Added inline decline modal with optional reason
+- Fixed Next.js API caching with `export const dynamic = 'force-dynamic'`
+- Fixed RLS issue - service role key now hardcoded in client.ts
+
+#### Auth Automation
+- Approve route now calls `supabaseAdmin.auth.admin.inviteUserByEmail()`
+- Auth user ID linked back to member record
+- Tested end-to-end - invite email received, auth account created in Supabase
+
+#### Domain
+- Registered riverheadcommunity.org.nz
+- Pending DNS activation
 
 #### Authentication System
 - Implemented Supabase Auth login flow

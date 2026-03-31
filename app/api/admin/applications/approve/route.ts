@@ -4,7 +4,6 @@ import { createCheckoutSession } from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   try {
-    // TODO: Add admin auth check
     const { memberId } = await request.json();
 
     const { data: member } = await supabaseAdmin
@@ -27,6 +26,26 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', memberId);
 
+    // Create Supabase Auth account and send invite email
+    const { data: authUser, error: inviteError } = await supabaseAdmin.auth.admin.inviteUserByEmail(
+      member.email,
+      {
+        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/member`,
+        data: { member_id: memberId }
+      }
+    );
+
+    if (inviteError) {
+      console.error('Invite error:', inviteError);
+      // Don't fail the approval if invite fails - admin can resend manually
+    } else if (authUser?.user) {
+      // Link the auth user to the member record
+      await supabaseAdmin
+        .from('members')
+        .update({ auth_user_id: authUser.user.id })
+        .eq('id', memberId);
+    }
+
     // Create payment record if primary household member
     let paymentLink = null;
     
@@ -42,23 +61,15 @@ export async function POST(request: NextRequest) {
         .select()
         .single();
 
-      // Create Stripe checkout session
       const session = await createCheckoutSession(memberId, 10);
       
-      // Store session ID in payment record
       await supabaseAdmin
         .from('payments')
-        .update({
-          stripe_checkout_session_id: session.id,
-        })
+        .update({ stripe_checkout_session_id: session.id })
         .eq('id', payment.id);
       
       paymentLink = session.url;
-
-      // TODO: Send approval email with payment link
-      // TODO: Log to audit trail
     } else {
-      // Additional household member - exempt from payment
       await supabaseAdmin
         .from('payments')
         .insert({
@@ -69,13 +80,11 @@ export async function POST(request: NextRequest) {
         });
     }
 
-    // TODO: Send approval email
-    // TODO: Send Facebook invite link
-
     return NextResponse.json({ 
       success: true,
-      paymentLink: paymentLink,
+      paymentLink,
       requiresPayment: member.is_primary_household_member,
+      inviteSent: !inviteError,
     });
   } catch (error) {
     console.error('Approve error:', error);

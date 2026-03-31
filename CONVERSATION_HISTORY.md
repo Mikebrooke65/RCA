@@ -110,13 +110,39 @@ See TODO.md for complete task breakdown
 - Admin routes: ⚠️ Not yet protected
 - Email: ⚠️ Needs domain verification in Resend
 
+### Session 4 - March 31, 2026 (Continued)
+
+### Auto-Approval for Full Members
+- Full Members with validated Riverhead address now auto-approved instantly
+- Supabase invite email sent automatically on approval
+- Payment link shown on success screen for primary household members
+- Friends still go through admin approval queue
+- Apply page completely rewritten - no more alert() popups, proper success screen
+- Success screen shows different message for auto-approved vs pending
+
+### Admin Applications UX
+- Removed confirm() popup from approve button
+- Added inline decline modal with optional reason field
+- Applications disappear immediately after approval
+- Fixed Next.js caching issue (force-dynamic on all admin API routes)
+- Fixed RLS issue - supabaseAdmin now uses hardcoded service role key
+
+### Auth Account Creation Automated
+- Admin approval now creates Supabase Auth account automatically
+- Invite email sent via Supabase built-in email system
+- Auth user linked to member record (auth_user_id)
+- Tested successfully - invite email received and auth account created
+
+### Domain Acquired
+- Registered riverheadcommunity.org.nz
+- Will be used for: Netlify hosting, Resend email, Supabase custom SMTP
+
 ### Next Session Tasks
-1. Wire member portal to authenticated user
-2. Add route protection to member and admin pages
-3. Add logout button
-4. Fix env var loading (anon key hardcoded in browser.ts)
-5. Test Friend membership flow
-6. Consider deployment to Netlify staging
+1. Test full auto-approval flow with new Full Member application
+2. Configure Supabase email templates once domain active
+3. Set up Netlify deployment
+4. Configure custom SMTP in Supabase (riverheadcommunity.org.nz)
+5. Verify Resend domain for custom email sending
 
 ### Status Update
 - Phases 1-2: ✅ Complete
