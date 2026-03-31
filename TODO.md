@@ -54,7 +54,10 @@
 ## Phase 3: Member Portal 🔄 IN PROGRESS
 - [x] Member login/authentication - COMPLETE (Supabase Auth working)
 - [x] Member dashboard (view details, household, payments)
-- [ ] Wire member portal to authenticated user (uses temp-user-id currently)
+- [x] Wire member portal to authenticated user (uses auth session)
+- [ ] Member portal navigation bar (similar to admin nav)
+- [ ] Welcome text and announcements section on member portal landing page
+- [ ] File repository (minutes, accounts, constitution, planning docs etc)
 - [ ] Update contact details form
 - [x] View renewal history
 - [ ] Download receipts
@@ -63,13 +66,18 @@
 
 ## Phase 4: Admin Dashboard 🔄 IN PROGRESS
 - [x] Admin authentication + role detection - COMPLETE
-- [ ] Protect admin routes (redirect to login if not authenticated)
+- [x] Admin navigation bar across all admin pages
+- [x] Protect admin routes (redirect to login if not authenticated)
 - [x] Membership overview dashboard
 - [x] Application approval queue
 - [x] Household management UI
 - [x] Payment reconciliation interface
 - [x] Member search and filtering
 - [x] Audit log viewer
+- [x] Membership year & fee management
+- [ ] Wire audit logging to actual actions
+- [ ] Announcements management (create/edit announcements for landing page and member portal)
+- [ ] File repository management (upload minutes, accounts, constitution etc)
 - [ ] CSV export functionality
 
 ## Phase 5: Renewal System ✅ COMPLETE
@@ -92,14 +100,19 @@
 - [x] Template variable system
 
 ## Phase 8: Polish & Deploy
-- [ ] Implement Supabase Auth for members and admins
+- [x] Deploy to Netlify (rcamembership.netlify.app)
+- [ ] Configure custom domain (riverheadcommunity.org.nz - DNS propagating)
+- [ ] Landing page - add welcome text and announcements section
+- [ ] Member portal landing page - welcome text and announcements
+- [ ] File repository for members (minutes, accounts, constitution, planning docs)
+- [ ] Forgot password page
 - [ ] Error handling and validation
 - [ ] Loading states and UX polish
-- [ ] Mobile responsiveness
-- [ ] Deploy to Netlify
-- [ ] Set up Netlify environment variables
-- [ ] Configure custom domain
-- [ ] Test production webhooks
+- [ ] Set up Stripe bank account for real payments
+- [ ] Configure custom SMTP in Supabase
+- [ ] Customise Supabase email templates
+- [ ] Clean up test data from database
+- [ ] Test production webhooks (Stripe)
 
 ## Open Questions to Resolve
 - Can lapsed members rejoin without reapplying?

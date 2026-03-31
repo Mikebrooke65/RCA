@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Layout from '@/components/Layout';
+import AdminNav from '@/components/AdminNav';
 
 interface Member {
   id: string;
@@ -11,9 +13,7 @@ interface Member {
   membership_status: string;
   date_joined: string;
   is_primary_household_member: boolean;
-  household?: {
-    normalized_address: string;
-  };
+  household?: { normalized_address: string };
 }
 
 export default function MembersPage() {
@@ -21,14 +21,11 @@ export default function MembersPage() {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    fetchMembers();
-  }, [filter]);
+  useEffect(() => { fetchMembers(); }, [filter]);
 
   async function fetchMembers() {
     const params = new URLSearchParams();
     if (filter !== 'all') params.append('status', filter);
-    
     const response = await fetch(`/api/admin/members?${params}`);
     const data = await response.json();
     setMembers(data.members || []);
@@ -39,29 +36,18 @@ export default function MembersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Member Management</h1>
-        <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          Export CSV
-        </button>
-      </div>
-
-      <div className="bg-white rounded-lg p-6 mb-6">
+    <Layout title="Member Management">
+      <AdminNav />
+      <div className="mt-6 bg-white rounded-lg p-6">
         <div className="flex gap-4 mb-4">
           <input
             type="text"
             placeholder="Search members..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 p-2 border rounded"
+            className="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-rca-green focus:border-transparent"
           />
-          
-          <select 
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="p-2 border rounded"
-          >
+          <select value={filter} onChange={(e) => setFilter(e.target.value)} className="p-2 border rounded-lg">
             <option value="all">All Members</option>
             <option value="active">Active</option>
             <option value="pending">Pending</option>
@@ -69,15 +55,13 @@ export default function MembersPage() {
             <option value="resigned">Resigned</option>
           </select>
         </div>
-
+        <p className="text-sm text-gray-500 mb-3">{filteredMembers.length} members</p>
         <div className="space-y-2">
           {filteredMembers.map((member) => (
-            <div key={member.id} className="p-4 border rounded hover:bg-gray-50">
+            <div key={member.id} className="p-4 border rounded-lg hover:bg-gray-50">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-semibold">
-                    {member.first_name} {member.last_name}
-                  </h3>
+                  <h3 className="font-semibold">{member.first_name} {member.last_name}</h3>
                   <p className="text-sm text-gray-600">{member.email}</p>
                   {member.household && (
                     <p className="text-xs text-gray-500 mt-1">
@@ -86,9 +70,8 @@ export default function MembersPage() {
                     </p>
                   )}
                 </div>
-                
                 <div className="text-right">
-                  <span className={`text-xs px-2 py-1 rounded ${
+                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${
                     member.membership_type === 'full_member' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
                   }`}>
                     {member.membership_type === 'full_member' ? 'Full Member' : 'Friend'}
@@ -100,6 +83,6 @@ export default function MembersPage() {
           ))}
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
