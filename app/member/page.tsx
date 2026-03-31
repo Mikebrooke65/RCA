@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Layout from '@/components/Layout';
+import { supabaseBrowser } from '@/lib/supabase/browser';
 
 interface MemberData {
   id: string;
@@ -11,88 +14,111 @@ interface MemberData {
   membership_type: string;
   membership_status: string;
   date_joined: string;
-  household?: {
-    normalized_address: string;
-  };
-  household_members?: Array<{
-    first_name: string;
-    last_name: string;
-  }>;
+  households?: { normalized_address: string };
 }
 
 export default function MemberPortal() {
+  const router = useRouter();
   const [member, setMember] = useState<MemberData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/member/profile')
-      .then(res => res.json())
-      .then(data => {
-        setMember(data.member);
-        setLoading(false);
-      });
-  }, []);
+    async function loadProfile() {
+      const { data: { session } } = await supabaseBrowser.auth.getSession();
+      
+      if (!session) {
+        router.push('/login');
+        return;
+      }
 
-  if (loading) return <div className="p-8">Loading...</div>;
-  if (!member) return <div className="p-8">Please log in</div>;
+      const res = await fetch('/api/member/profile', {
+        headers: { Authorization: `Bearer ${session.access_token}` }
+      });
+
+      if (res.status === 401) {
+        router.push('/login');
+        return;
+      }
+
+      const data = await res.json();
+      setMember(data.member);
+      setLoading(false);
+    }
+
+    loadProfile();
+  }, [router]);
+
+  if (loading) return (
+    <Layout title="Member Portal">
+      <div className="text-center py-12 text-gray-500">Loading...</div>
+    </Layout>
+  );
+
+  if (!member) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b p-4">
-        <h1 className="text-2xl font-bold">Member Portal</h1>
-      </nav>
-
-      <main className="p-8 max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg p-6 mb-6">
-          <h2 className="text-2xl font-semibold mb-4">
-            Welcome, {member.first_name}!
-          </h2>
-          
-          <div className="grid grid-cols-2 gap-4 text-sm">
+    <Layout title={`Welcome, ${member.first_name}!`}>
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Profile Card */}
+        <div className="bg-white rounded-lg p-6 shadow-sm border">
+          <h2 className="text-lg font-semibold text-rca-black mb-4">Your Details</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-600">Email:</span> {member.email}
+              <span className="text-gray-500">Email:</span>
+              <span className="ml-2 font-medium">{member.email}</span>
             </div>
             <div>
-              <span className="text-gray-600">Phone:</span> {member.phone || 'Not provided'}
+              <span className="text-gray-500">Phone:</span>
+              <span className="ml-2 font-medium">{member.phone || 'Not provided'}</span>
             </div>
             <div>
-              <span className="text-gray-600">Status:</span>{' '}
-              <span className="capitalize">{member.membership_status}</span>
+              <span className="text-gray-500">Membership:</span>
+              <span className="ml-2 font-medium capitalize">{member.membership_type.replace('_', ' ')}</span>
             </div>
             <div>
-              <span className="text-gray-600">Member Since:</span>{' '}
-              {new Date(member.date_joined).toLocaleDateString()}
+              <span className="text-gray-500">Status:</span>
+              <span className={`ml-2 font-medium capitalize ${member.membership_status === 'active' ? 'text-green-600' : 'text-yellow-600'}`}>
+                {member.membership_status}
+              </span>
             </div>
+            <div>
+              <span className="text-gray-500">Member Since:</span>
+              <span className="ml-2 font-medium">{new Date(member.date_joined).toLocaleDateString('en-NZ')}</span>
+            </div>
+            {member.households && (
+              <div>
+                <span className="text-gray-500">Address:</span>
+                <span className="ml-2 font-medium">{member.households.normalized_address}</span>
+              </div>
+            )}
           </div>
-
-          {member.household && (
-            <div className="mt-4 pt-4 border-t">
-              <p className="text-sm text-gray-600">Address:</p>
-              <p className="font-medium">{member.household.normalized_address}</p>
-            </div>
-          )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <PortalLink href="/member/household" title="Household Members" />
-          <PortalLink href="/member/payments" title="Payment History" />
-          <PortalLink href="/member/renewals" title="Renewal History" />
-          <PortalLink href="/member/documents" title="Members-Only Documents" />
-          <PortalLink href="/member/update" title="Update Contact Details" />
-          <PortalLink href="/member/resign" title="Resign Membership" />
+        {/* Portal Links */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <PortalLink href="/member/household" icon="🏠" title="Household Members" desc="View others at your address" />
+          <PortalLink href="/member/payments" icon="💳" title="Payment History" desc="View your payments and receipts" />
+          <PortalLink href="/member/renewals" icon="🔄" title="Renewal History" desc="View your membership renewals" />
+          <PortalLink href="/member/update" icon="✏️" title="Update Details" desc="Update your contact information" />
         </div>
-      </main>
-    </div>
+      </div>
+    </Layout>
   );
 }
 
-function PortalLink({ href, title }: { href: string; title: string }) {
+function PortalLink({ href, icon, title, desc }: { href: string; icon: string; title: string; desc: string }) {
   return (
-    <a 
+    <a
       href={href}
-      className="block p-4 bg-white rounded-lg border hover:border-blue-500 hover:shadow-md transition"
+      className="block p-5 bg-white rounded-lg border hover:border-rca-green hover:shadow-md transition group"
     >
-      {title}
+      <div className="flex items-center space-x-3">
+        <span className="text-2xl">{icon}</span>
+        <div>
+          <p className="font-semibold text-rca-black group-hover:text-rca-green transition">{title}</p>
+          <p className="text-sm text-gray-500">{desc}</p>
+        </div>
+      </div>
     </a>
   );
 }

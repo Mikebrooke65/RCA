@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import LogoutButton from './LogoutButton';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ interface LayoutProps {
 
 export default function Layout({ children, title, showNav = true }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,26 +34,14 @@ export default function Layout({ children, title, showNav = true }: LayoutProps)
 
             {/* Navigation */}
             {showNav && (
-              <nav className="hidden md:flex space-x-6">
-                <Link
-                  href="/apply"
-                  className="text-gray-700 hover:text-rca-green transition"
-                >
-                  Apply
-                </Link>
-                <Link
-                  href="/member"
-                  className="text-gray-700 hover:text-rca-green transition"
-                >
-                  Member Portal
-                </Link>
-                <Link
-                  href="/admin"
-                  className="text-gray-700 hover:text-rca-green transition"
-                >
-                  Admin
-                </Link>
-              </nav>
+              <div className="flex items-center space-x-6">
+                <nav className="hidden md:flex space-x-6">
+                  <Link href="/apply" className="text-gray-700 hover:text-rca-green transition">Apply</Link>
+                  <Link href="/member" className="text-gray-700 hover:text-rca-green transition">My Portal</Link>
+                  <Link href="/admin" className="text-gray-700 hover:text-rca-green transition">Admin</Link>
+                </nav>
+                <LogoutButton />
+              </div>
             )}
           </div>
         </div>

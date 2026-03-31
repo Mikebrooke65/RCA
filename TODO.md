@@ -12,9 +12,9 @@
 - [x] Test `npm run dev` works
 
 ## Immediate Next Steps
-1. [ ] Wire member portal to authenticated user session
-2. [ ] Add route protection (redirect to /login if not authenticated)
-3. [ ] Add logout button to header/nav
+1. [x] Wire member portal to authenticated user session
+2. [x] Add route protection (redirect to /login if not authenticated)
+3. [x] Add logout button to header/nav
 4. [ ] Fix email service (verify domain in Resend for production)
 5. [ ] Test Friend membership application flow
 6. [ ] Set up Stripe CLI for local webhook testing

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/client';
 
-export async function GET(request: NextRequest) {
+export const dynamic = 'force-dynamic';
   try {
     // TODO: Add admin auth check
     const searchParams = request.nextUrl.searchParams;
