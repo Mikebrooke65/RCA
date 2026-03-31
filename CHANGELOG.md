@@ -215,3 +215,18 @@ All notable changes to this project will be documented in this file.
 #### Domain
 - Registered `riverheadcommunity.org.nz`
 - Pending DNS activation
+
+### Session 5 - 2026-04-01
+
+#### Deployment
+- Successfully deployed to Netlify at rcamembership.netlify.app
+- Fixed Netlify build errors (Python version, Stripe API version, TypeScript)
+- Fixed API routes (removed bad redirects from netlify.toml)
+- Fixed logo 400 error (set unoptimized images in next.config.js)
+- Added all environment variables to Netlify
+- Domain riverheadcommunity.org.nz registered and DNS propagating
+- Supabase redirect URLs updated for production
+
+#### Known Issues
+- /forgot-password page not yet created (404)
+- NEXT_PUBLIC_APP_URL needs updating to riverheadcommunity.org.nz once domain propagates
