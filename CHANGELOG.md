@@ -185,3 +185,33 @@ All notable changes to this project will be documented in this file.
 - Core dependencies defined
 - Database schema designed
 - Integration stubs implemented
+
+### Session 4 - 2026-03-31
+
+#### Full Member Auto-Approval
+- Full Members with validated Riverhead address now auto-approved instantly
+- Supabase `inviteUserByEmail()` called on approval - sends invite email automatically
+- Auth user linked to member record (`auth_user_id`) on invite
+- Payment link generated and shown on success screen for primary household members
+- Friends still go through admin approval queue
+
+#### Apply Page Rewrite
+- Removed all `alert()` popups - replaced with proper success screen
+- Full Members see "Welcome to RCA!" with payment link if applicable
+- Friends see "Application received, we'll be in touch"
+- Branded with Layout component and RCA colors
+
+#### Admin Applications UX
+- Removed `confirm()` popup from approve button
+- Added inline decline modal with optional reason text field
+- Applications disappear immediately after approval
+- Added `force-dynamic` to all admin API routes to prevent caching
+
+#### Bug Fixes
+- Fixed `supabaseAdmin` using anon key instead of service role key (RLS was blocking queries)
+- Fixed syntax error in members API route
+- Fixed Next.js route caching causing stale data
+
+#### Domain
+- Registered `riverheadcommunity.org.nz`
+- Pending DNS activation

@@ -15,9 +15,15 @@
 1. [x] Wire member portal to authenticated user session
 2. [x] Add route protection (redirect to /login if not authenticated)
 3. [x] Add logout button to header/nav
-4. [ ] Fix email service - configure custom SMTP in Supabase once domain active
-5. [ ] Customise Supabase email templates (invite, password reset) to look like RCA emails
+4. [x] Automate auth account creation on approval (Supabase invite)
+5. [x] Auto-approve Full Members with validated address
 6. [x] Test Friend membership application flow
+7. [ ] Configure custom SMTP in Supabase (riverheadcommunity.org.nz) - waiting for domain
+8. [ ] Customise Supabase email templates to look like RCA emails
+9. [ ] Test full auto-approval flow for Full Members end-to-end
+10. [ ] Deploy to Netlify
+11. [ ] Set up Stripe CLI for local webhook testing
+12. [ ] Free up disk space on dev machine
 7. [x] Auto-approve Full Members when address validates
 8. [ ] Test full auto-approval flow end to end
 9. [ ] Set up Stripe CLI for local webhook testing
