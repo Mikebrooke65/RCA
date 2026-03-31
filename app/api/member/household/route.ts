@@ -26,7 +26,7 @@ export async function GET() {
 
     return NextResponse.json({
       members: members || [],
-      address: currentMember.households?.normalized_address || '',
+      address: (currentMember.households as any)?.[0]?.normalized_address ?? '',
     });
   } catch (error) {
     console.error('Household fetch error:', error);
