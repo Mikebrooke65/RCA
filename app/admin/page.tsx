@@ -57,6 +57,8 @@ export default function AdminDashboard() {
         <QuickLink href="/admin/members" icon="👥" title="Manage Members" />
         <QuickLink href="/admin/payments" icon="💳" title="Payment Reconciliation" />
         <QuickLink href="/admin/renewals" icon="🔄" title="Renewal Management" />
+        <QuickLink href="/admin/announcements" icon="📢" title="Announcements" />
+        <QuickLink href="/admin/documents" icon="📁" title="Documents" />
         <QuickLink href="/admin/facebook" icon="📘" title="Facebook Group Sync" />
         <QuickLink href="/admin/audit" icon="📝" title="Audit Log" />
       </div>

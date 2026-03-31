@@ -4,17 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { href: '/admin', label: 'Dashboard', icon: '🏠' },
-  { href: '/admin/applications', label: 'Applications', icon: '📋' },
-  { href: '/admin/members', label: 'Members', icon: '👥' },
-  { href: '/admin/payments', label: 'Payments', icon: '💳' },
-  { href: '/admin/renewals', label: 'Renewals', icon: '🔄' },
-  { href: '/admin/announcements', label: 'Announcements', icon: '📢' },
-  { href: '/admin/documents', label: 'Documents', icon: '📁' },
-  { href: '/admin/audit', label: 'Audit', icon: '📝' },
+  { href: '/member', label: 'Dashboard', icon: '🏠' },
+  { href: '/member/household', label: 'Household', icon: '👨‍👩‍👧' },
+  { href: '/member/payments', label: 'Payments', icon: '💳' },
+  { href: '/member/documents', label: 'Documents', icon: '📄' },
+  { href: '/member/update', label: 'My Details', icon: '✏️' },
 ];
 
-export default function AdminNav() {
+export default function MemberNav() {
   const pathname = usePathname();
 
   return (

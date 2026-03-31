@@ -1,122 +1,74 @@
 # RCA Membership System - TODO
 
-## Setup Tasks (Do First)
-- [x] Run `npm install`
-- [x] Create Supabase project at supabase.com
-- [x] Run `supabase/schema.sql` in Supabase SQL Editor
-- [x] Set up Supabase Auth (Email provider enabled)
-- [x] Set up Stripe account + get API keys (test mode)
-- [x] Set up Resend account + get API key
-- [x] Get Google Maps API key (Geocoding + Places API)
-- [x] Copy `.env.local.example` to `.env.local` and fill in keys
-- [x] Test `npm run dev` works
+## 🚀 Next Up
+1. [ ] Configure custom SMTP in Supabase (use riverheadcommunity.org.nz)
+2. [ ] Customise Supabase email templates to look like RCA emails
+3. [ ] Wire audit logging to actual actions
+4. [ ] Update contact details form (member portal)
+5. [ ] Set up Stripe bank account for real payments
+6. [ ] Clean up test data from database
+7. [ ] Test full auto-approval flow on production end-to-end
 
-## Immediate Next Steps
-1. [x] Wire member portal to authenticated user session
-2. [x] Add route protection (redirect to /login if not authenticated)
-3. [x] Add logout button to header/nav
-4. [x] Automate auth account creation on approval (Supabase invite)
-5. [x] Auto-approve Full Members with validated address
-6. [x] Test Friend membership application flow
-7. [x] Admin navigation bar across all admin pages
-8. [x] Membership year & fee management
-9. [ ] Configure custom SMTP in Supabase (riverheadcommunity.org.nz) - waiting for domain
-10. [ ] Customise Supabase email templates to look like RCA emails
-11. [ ] Update NEXT_PUBLIC_APP_URL to riverheadcommunity.org.nz once domain propagates
-12. [ ] Create forgot password page
-13. [ ] Test full auto-approval flow for Full Members end-to-end on production
-14. [ ] Wire audit logging to actual actions
-15. [ ] Deploy to Netlify (done - rcamembership.netlify.app)
-16. [ ] Set up Stripe bank account for real payments
-17. [ ] Clean up test data from database
-7. [x] Auto-approve Full Members when address validates
-8. [ ] Test full auto-approval flow end to end
-9. [ ] Set up Stripe CLI for local webhook testing
-10. [ ] Free up disk space on dev machine (currently at 0GB!)
-11. [ ] Deploy to Netlify once domain active
+## 🔜 Before Going Live
+- [ ] Stripe bank account configured
+- [ ] Custom SMTP configured (emails from noreply@riverheadcommunity.org.nz)
+- [ ] Test data cleaned up
+- [ ] Stripe webhook configured in Stripe Dashboard (production URL)
+- [ ] Facebook App configured (optional)
 
-## Phase 1: Core Application Flow ✅ COMPLETE
-- [x] Build application form (Full Member + Friend)
-- [x] Implement email verification flow
-- [x] Create address validation UI (Google Maps integration)
-- [x] Build household duplicate detection
-- [x] Create admin approval workflow
-- [x] Build welcome email system (templates ready)
-- [x] Wire up forms to API endpoints
+## ✅ Completed
 
-## Phase 2: Payment System ✅ COMPLETE
-- [x] Implement Stripe checkout flow
-- [x] Create Stripe webhook handler (`/api/webhooks/stripe`)
-- [x] Build payment status tracking
-- [x] Create ASB CSV upload + reconciliation UI
-- [x] Build payment history view for members
+### Infrastructure
+- [x] Supabase database deployed
+- [x] Netlify deployment (riverheadcommunity.org.nz)
+- [x] Domain registered and configured
+- [x] Supabase Auth configured
+- [x] Stripe test mode configured
+- [x] Google Maps API configured
+- [x] Resend email configured
 
-## Phase 3: Member Portal 🔄 IN PROGRESS
-- [x] Member login/authentication - COMPLETE (Supabase Auth working)
-- [x] Member dashboard (view details, household, payments)
-- [x] Wire member portal to authenticated user (uses auth session)
-- [ ] Member portal navigation bar (similar to admin nav)
-- [ ] Welcome text and announcements section on member portal landing page
-- [ ] File repository (minutes, accounts, constitution, planning docs etc)
-- [ ] Update contact details form
-- [x] View renewal history
-- [ ] Download receipts
-- [x] Request household member addition
-- [ ] Resignation flow
+### Application Flow
+- [x] Full Member application form with address validation
+- [x] Friend application form
+- [x] Household detection and creation
+- [x] Full Members auto-approved when address validates
+- [x] Friends go through admin approval queue
+- [x] Supabase Auth account created automatically on approval
+- [x] Invite email sent to new members on approval
+- [x] Payment link generated for primary household members
 
-## Phase 4: Admin Dashboard 🔄 IN PROGRESS
-- [x] Admin authentication + role detection - COMPLETE
-- [x] Admin navigation bar across all admin pages
-- [x] Protect admin routes (redirect to login if not authenticated)
-- [x] Membership overview dashboard
-- [x] Application approval queue
-- [x] Household management UI
-- [x] Payment reconciliation interface
-- [x] Member search and filtering
-- [x] Audit log viewer
+### Member Portal
+- [x] Login with role-based redirect (admin vs member)
+- [x] Logout button
+- [x] Forgot password / reset password pages
+- [x] Member dashboard with profile details
+- [x] Member navigation bar
+- [x] Household members page
+- [x] Payment history page
+- [x] Announcements on member portal
+- [x] Document repository (download minutes, accounts, constitution etc)
+
+### Admin Dashboard
+- [x] Admin navigation bar
+- [x] Route protection (redirects to login)
+- [x] Dashboard with stats
+- [x] Applications approval queue (no popups, inline decline modal)
+- [x] Member management with search/filter
+- [x] Payment reconciliation (ASB CSV upload)
+- [x] Renewal management
 - [x] Membership year & fee management
-- [ ] Wire audit logging to actual actions
-- [ ] Announcements management (create/edit announcements for landing page and member portal)
-- [ ] File repository management (upload minutes, accounts, constitution etc)
-- [ ] CSV export functionality
+- [x] Announcements management (create/edit/delete with images)
+- [x] Document repository management (upload/edit/delete by category)
+- [x] Audit log viewer
+- [x] Facebook page (placeholder - not configured)
 
-## Phase 5: Renewal System ✅ COMPLETE
-- [x] Create renewal auto-draft job (runs April 1)
-- [x] Build renewal email templates
-- [x] Implement reminder schedule (April 15, May 1)
-- [ ] Create renewal confirmation flow
-- [ ] Handle lapsed member logic (after May 31)
+### Landing Page
+- [x] Branded with RCA logo and forest green colours
+- [x] Apply and Login cards
+- [x] Public announcements section
 
-## Phase 6: Facebook Integration ✅ COMPLETE
-- [x] Generate and send invite links
-- [x] Build Facebook group health dashboard
-- [x] Track member join/leave status
-- [x] Flag members for removal
-
-## Phase 7: Communications 🔄 IN PROGRESS
-- [x] Email template management (templates created)
-- [ ] Bulk email sending
-- [ ] Communication log viewer
-- [x] Template variable system
-
-## Phase 8: Polish & Deploy
-- [x] Deploy to Netlify (rcamembership.netlify.app)
-- [ ] Configure custom domain (riverheadcommunity.org.nz - DNS propagating)
-- [ ] Landing page - add welcome text and announcements section
-- [ ] Member portal landing page - welcome text and announcements
-- [ ] File repository for members (minutes, accounts, constitution, planning docs)
-- [ ] Forgot password page
-- [ ] Error handling and validation
-- [ ] Loading states and UX polish
-- [ ] Set up Stripe bank account for real payments
-- [ ] Configure custom SMTP in Supabase
-- [ ] Customise Supabase email templates
-- [ ] Clean up test data from database
-- [ ] Test production webhooks (Stripe)
-
-## Open Questions to Resolve
+## 🤔 Open Questions
 - Can lapsed members rejoin without reapplying?
-- What happens when a household moves?
-- Should Friends be notified when removed from Facebook group?
+- What happens when a household moves address?
 - Do we need IRD-compliant donation receipts?
 - Should audit logs include member self-service actions?
