@@ -18,12 +18,17 @@
 4. [x] Automate auth account creation on approval (Supabase invite)
 5. [x] Auto-approve Full Members with validated address
 6. [x] Test Friend membership application flow
-7. [ ] Configure custom SMTP in Supabase (riverheadcommunity.org.nz) - waiting for domain
-8. [ ] Customise Supabase email templates to look like RCA emails
-9. [ ] Test full auto-approval flow for Full Members end-to-end
-10. [ ] Deploy to Netlify
-11. [ ] Set up Stripe CLI for local webhook testing
-12. [ ] Free up disk space on dev machine
+7. [x] Admin navigation bar across all admin pages
+8. [x] Membership year & fee management
+9. [ ] Configure custom SMTP in Supabase (riverheadcommunity.org.nz) - waiting for domain
+10. [ ] Customise Supabase email templates to look like RCA emails
+11. [ ] Update NEXT_PUBLIC_APP_URL to riverheadcommunity.org.nz once domain propagates
+12. [ ] Create forgot password page
+13. [ ] Test full auto-approval flow for Full Members end-to-end on production
+14. [ ] Wire audit logging to actual actions
+15. [ ] Deploy to Netlify (done - rcamembership.netlify.app)
+16. [ ] Set up Stripe bank account for real payments
+17. [ ] Clean up test data from database
 7. [x] Auto-approve Full Members when address validates
 8. [ ] Test full auto-approval flow end to end
 9. [ ] Set up Stripe CLI for local webhook testing

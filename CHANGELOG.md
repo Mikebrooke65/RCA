@@ -230,3 +230,25 @@ All notable changes to this project will be documented in this file.
 #### Known Issues
 - /forgot-password page not yet created (404)
 - NEXT_PUBLIC_APP_URL needs updating to riverheadcommunity.org.nz once domain propagates
+
+### Session 5 continued - 2026-04-01
+
+#### Admin Navigation
+- Created AdminNav component with tab bar across all admin pages
+- Links to: Dashboard, Applications, Members, Payments, Renewals, Audit
+- Active page highlighted in forest green
+- Horizontally scrollable on mobile
+
+#### Admin Pages Refactored
+- All admin pages now use Layout + AdminNav components
+- Removed all alert()/confirm() popups - replaced with inline feedback
+- Facebook page shows "not configured" message instead of broken UI
+- Consistent RCA branding across all admin pages
+
+#### Membership Year & Fee Management
+- Added membership_years table support in admin
+- Renewals page now shows all membership years with fees
+- Admins can edit fee for any year inline
+- Admins can add new membership years (April 1 - March 31)
+- Created /api/admin/membership-years API (GET, POST, PATCH)
+- 2026-2027 year created in database with $10 fee

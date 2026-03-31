@@ -178,3 +178,42 @@ See TODO.md for complete task breakdown
 - Created TODO.md for phased development
 - Core application flow (Phase 1-2) substantially complete
 - Ready to continue with remaining phases
+
+### Session 5 continued - April 1, 2026
+
+### Production Deployment
+- App deployed to rcamembership.netlify.app
+- Fixed multiple build errors (Python version, Stripe API version, TypeScript, redirects)
+- Fixed logo 400 error with unoptimized images
+- Added all environment variables to Netlify
+- Domain riverheadcommunity.org.nz registered and DNS propagating via Netlify DNS
+- Supabase redirect URLs updated for production URLs
+- Login and admin dashboard working in production
+
+### Admin UI Improvements
+- Created AdminNav component - tab bar across all admin pages
+- Refactored all admin pages to use Layout + AdminNav
+- Removed all alert()/confirm() popups
+- Facebook page shows "not configured" placeholder
+
+### Membership Fee Management
+- Added membership year management to renewals page
+- Admins can view, edit fees and add new years
+- Created /api/admin/membership-years API
+- 2026-2027 year seeded in database ($10 fee)
+
+### Status
+- Production: ✅ Live at rcamembership.netlify.app
+- Domain: ⏳ DNS propagating
+- Admin nav: ✅ Working
+- Fee management: ✅ Working
+- Audit logging: ❌ Not yet wired up
+- Facebook: ❌ Not configured
+- Stripe bank account: ❌ Not set up
+
+### Next Session Tasks
+1. Test full member auto-approval flow on production
+2. Configure domain email (Supabase SMTP + Resend)
+3. Create forgot password page
+4. Wire audit logging to actions
+5. Clean up test data
