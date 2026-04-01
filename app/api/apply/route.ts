@@ -42,7 +42,13 @@ export async function POST(request: NextRequest) {
       const addressValidation = await validateRiverheadAddress(data.address);
       
       if (!addressValidation.valid) {
-        return NextResponse.json({ error: 'Address must be in Riverhead' }, { status: 400 });
+        if (addressValidation.error === 'address_not_found') {
+          return NextResponse.json({ error: 'We couldn\'t find that address. Please check the spelling and try again.' }, { status: 400 });
+        } else if (addressValidation.error === 'not_riverhead') {
+          return NextResponse.json({ error: 'This address doesn\'t appear to be in Riverhead. Full membership is for Riverhead residents only. You can apply as a Friend of Riverhead instead.' }, { status: 400 });
+        } else {
+          return NextResponse.json({ error: 'Unable to validate address. Please try again.' }, { status: 400 });
+        }
       }
 
       // Check for existing household

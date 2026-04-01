@@ -29,7 +29,7 @@ export async function validateRiverheadAddress(address: string) {
     const data = await response.json();
 
     if (data.status !== 'OK' || !data.results?.[0]) {
-      return { valid: false, normalized: null };
+      return { valid: false, normalized: null, error: 'address_not_found' };
     }
 
     const result = data.results[0];
@@ -50,9 +50,10 @@ export async function validateRiverheadAddress(address: string) {
       postcode: components.find((c: any) => c.types.includes('postal_code'))?.long_name,
       latitude: result.geometry.location.lat,
       longitude: result.geometry.location.lng,
+      error: isRiverhead ? null : 'not_riverhead',
     };
   } catch (error) {
     console.error('Google Maps API error:', error);
-    return { valid: false, normalized: null };
+    return { valid: false, normalized: null, error: 'validation_failed' };
   }
 }

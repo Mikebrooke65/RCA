@@ -22,13 +22,21 @@ export default function ApplyPage() {
             <>
               <h2 className="text-2xl font-bold text-rca-black mb-3">Welcome to RCA!</h2>
               <p className="text-gray-600 mb-4">
-                Your application has been approved. Check your email for instructions to set up your member account.
+                Your application has been approved.
               </p>
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
+                <p className="text-sm font-medium text-blue-800 mb-2">📧 Check Your Email</p>
+                <p className="text-sm text-blue-700">
+                  We&apos;ve sent you an email to set up your password. Check your inbox (and junk folder) then click the link to complete your account setup.
+                </p>
+              </div>
+
               {submitted.requiresPayment && submitted.paymentLink && (
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-left">
-                  <p className="text-sm font-medium text-yellow-800 mb-2">Payment Required</p>
+                  <p className="text-sm font-medium text-yellow-800 mb-2">💳 Payment Required</p>
                   <p className="text-sm text-yellow-700 mb-3">
-                    A $10 annual membership fee applies to your household.
+                    A $10 annual membership fee applies to your household. You can pay now or later from your member portal.
                   </p>
                   <a
                     href={submitted.paymentLink}
@@ -42,9 +50,15 @@ export default function ApplyPage() {
           ) : (
             <>
               <h2 className="text-2xl font-bold text-rca-black mb-3">Application Received!</h2>
-              <p className="text-gray-600 mb-6">
-                Thank you for applying to join the Riverhead Community Association. We'll review your application and be in touch within a few days.
+              <p className="text-gray-600 mb-4">
+                Thank you for applying to join the Riverhead Community Association.
               </p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
+                <p className="text-sm font-medium text-blue-800 mb-2">📧 What happens next?</p>
+                <p className="text-sm text-blue-700">
+                  We&apos;ll review your application and send you an email within a few days. Keep an eye on your inbox (and junk folder).
+                </p>
+              </div>
             </>
           )}
 
