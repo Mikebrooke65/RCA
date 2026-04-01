@@ -10,7 +10,7 @@ export default function ApplyPage() {
 
   if (submitted) {
     return (
-      <Layout title="Application Submitted">
+      <Layout title="Application Submitted" showNav={false}>
         <div className="max-w-lg mx-auto text-center py-12">
           <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
             <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,15 +58,18 @@ export default function ApplyPage() {
 
   if (!membershipType) {
     return (
-      <Layout title="Join Riverhead Community Association">
+      <Layout title="Join Riverhead Community Association" showNav={false}>
         <div className="max-w-2xl mx-auto space-y-4">
           <p className="text-gray-600 mb-6">Choose the membership type that applies to you:</p>
 
           <div
             onClick={() => setMembershipType('full_member')}
-            className="p-6 border-2 rounded-lg cursor-pointer hover:border-rca-green hover:bg-green-50 transition group"
+            className="p-6 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-rca-green hover:bg-green-50 transition group bg-white shadow-sm hover:shadow-md"
           >
-            <h2 className="text-xl font-semibold mb-2 group-hover:text-rca-green">Full Member</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-xl font-semibold group-hover:text-rca-green">Full Member</h2>
+              <span className="text-rca-green text-2xl">→</span>
+            </div>
             <p className="text-gray-600 mb-3">For Riverhead residents and ratepayers</p>
             <ul className="text-sm text-gray-700 space-y-1">
               <li>✓ Voting rights at AGM</li>
@@ -78,13 +81,15 @@ export default function ApplyPage() {
 
           <div
             onClick={() => setMembershipType('friend')}
-            className="p-6 border-2 rounded-lg cursor-pointer hover:border-rca-green hover:bg-green-50 transition group"
+            className="p-6 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-rca-green hover:bg-green-50 transition group bg-white shadow-sm hover:shadow-md"
           >
-            <h2 className="text-xl font-semibold mb-2 group-hover:text-rca-green">Friend of Riverhead</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-xl font-semibold group-hover:text-rca-green">Friend of Riverhead</h2>
+              <span className="text-rca-green text-2xl">→</span>
+            </div>
             <p className="text-gray-600 mb-3">For supporters outside Riverhead</p>
             <ul className="text-sm text-gray-700 space-y-1">
               <li>✓ Facebook group access</li>
-              <li>✓ Newsletter updates</li>
               <li>✓ Support the community</li>
               <li>✓ Free</li>
             </ul>
@@ -95,7 +100,7 @@ export default function ApplyPage() {
   }
 
   return (
-    <Layout title={membershipType === 'full_member' ? 'Full Member Application' : 'Friend of Riverhead Application'}>
+    <Layout title={membershipType === 'full_member' ? 'Full Member Application' : 'Friend of Riverhead Application'} showNav={false}>
       <div className="max-w-2xl mx-auto">
         <button
           onClick={() => setMembershipType(null)}
@@ -125,6 +130,7 @@ function MemberForm({ membershipType, onSubmitted }: {
     phone: '',
     address: '',
     consentGiven: false,
+    parentalConsent: false,
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -227,7 +233,7 @@ function MemberForm({ membershipType, onSubmitted }: {
         </div>
       )}
 
-      <div className="bg-gray-50 p-4 rounded-lg">
+      <div className="bg-gray-50 p-4 rounded-lg space-y-3">
         <label className="flex items-start space-x-3 cursor-pointer">
           <input
             type="checkbox" required
@@ -242,6 +248,20 @@ function MemberForm({ membershipType, onSubmitted }: {
             } *
           </span>
         </label>
+
+        {membershipType === 'full_member' && (
+          <label className="flex items-start space-x-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={formData.parentalConsent}
+              onChange={(e) => update('parentalConsent', e.target.checked)}
+              className="mt-1"
+            />
+            <span className="text-sm text-gray-700">
+              If under 18 years, I have parent/guardian permission to join
+            </span>
+          </label>
+        )}
       </div>
 
       <button

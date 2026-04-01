@@ -77,5 +77,11 @@
 ## 📋 Future Work
 - [ ] Donation receipts (IRD-compliant) for donation payments
 - [x] Add audit logging to member self-service changes (profile updates) ✅
-- [ ] Facebook integration - disconnect non-paying members from group access
+- [x] Facebook integration - manual tracking of FB group membership ✅
+- [x] Facebook cleanup report for lapsed members ✅
+- [x] Facebook group link on member portal ✅
 - [ ] Show outstanding fees prominently on member dashboard for lapsed members
+
+## 🚀 Phase 2 - Future Enhancements
+- [ ] Community Board - members can post under topic headings, reply to posts, add emoji reactions
+- [ ] Digital Membership Card - downloadable card for Apple Wallet / Google Wallet (or PDF with QR code)

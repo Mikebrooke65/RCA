@@ -69,8 +69,7 @@ export default function Layout({ children, title, showNav = true }: LayoutProps)
             <div>
               <h3 className="font-bold mb-3">About RCA</h3>
               <p className="text-gray-300 text-sm">
-                The Riverhead Community Association brings together residents
-                of Riverhead to build a stronger, more connected community.
+                The Riverhead Community Association is focused on the advancement and improvement of Riverhead and its environment. It has met and worked in Riverhead for many, many years and today continues to do as much as it can. It meets quarterly, with any sub-committees meeting as and when required – to make things happen!
               </p>
             </div>
             <div>
@@ -96,7 +95,7 @@ export default function Layout({ children, title, showNav = true }: LayoutProps)
             </div>
           </div>
           <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
-            © {new Date().getFullYear()} Riverhead Community Association. All rights reserved.
+            © {new Date().getFullYear()} Riverhead Resident and Ratepayers Association Incorporated. All rights reserved.
           </div>
         </div>
       </footer>

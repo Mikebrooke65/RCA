@@ -108,6 +108,25 @@ export default function MemberPortal() {
           <PortalLink href="/member/documents" icon="📄" title="Documents" desc="Minutes, constitution and more" />
           <PortalLink href="/member/update" icon="✏️" title="Update Details" desc="Update your contact information" />
         </div>
+
+        {/* Facebook Group */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-5">
+          <div className="flex items-center space-x-3">
+            <span className="text-2xl">📘</span>
+            <div className="flex-grow">
+              <p className="font-semibold text-blue-900">Join our Facebook Group</p>
+              <p className="text-sm text-blue-700">Connect with other Riverhead community members</p>
+            </div>
+            <a 
+              href="https://www.facebook.com/share/g/17SFKoqsSj/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+            >
+              Join Group
+            </a>
+          </div>
+        </div>
       </div>
     </Layout>
   );

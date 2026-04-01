@@ -22,6 +22,7 @@ function HomeContent() {
   const message = searchParams.get('message');
   const error = searchParams.get('error');
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [membershipFee, setMembershipFee] = useState<number | null>(null);
 
   useEffect(() => {
     // Listen for auth events - redirect to reset password if recovery
@@ -35,6 +36,15 @@ function HomeContent() {
       .then(res => res.json())
       .then(data => setAnnouncements(data.announcements || []));
 
+    // Fetch current membership fee
+    fetch('/api/admin/membership-years')
+      .then(res => res.json())
+      .then(data => {
+        if (data.years && data.years.length > 0) {
+          setMembershipFee(data.years[0].renewal_fee);
+        }
+      });
+
     return () => subscription.unsubscribe();
   }, [router]);
 
@@ -44,7 +54,7 @@ function HomeContent() {
       <div className="text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-bold text-rca-black mb-4">Welcome to Riverhead</h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Join our vibrant community and connect with your neighbours
+          Join our Association! In accordance with the new Incorporated Societies Act we have implemented a little more process to ensuring we maintain an accurate list of members and this Portal manages that for us. Membership is only {membershipFee !== null ? `$${membershipFee}` : '...'} per year, per household (multiple people at that address can join). Access our Facebook site, the association&apos;s resources and any key announcements.
         </p>
       </div>
 
@@ -61,19 +71,21 @@ function HomeContent() {
       )}
 
       {/* Action Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-10">
         <Link href="/apply" className="group">
-          <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition border-2 border-transparent hover:border-rca-green">
-            <div className="text-rca-green text-4xl mb-4">📝</div>
-            <h3 className="text-xl font-bold text-rca-black mb-2 group-hover:text-rca-green transition">Apply for Membership</h3>
-            <p className="text-gray-600">Join the Riverhead Community Association and become part of our community</p>
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-2 border-gray-200 hover:border-rca-green h-full flex flex-col">
+            <div className="text-rca-green text-3xl mb-3">📝</div>
+            <h3 className="text-lg font-bold text-rca-black mb-2 group-hover:text-rca-green transition">Apply for Membership</h3>
+            <p className="text-gray-600 text-sm flex-grow">Join the Riverhead Community Association and become part of our community. {membershipFee !== null ? `$${membershipFee}` : '...'} annual membership per household, no age requirement but under 18 years requires parent/guardian approval.</p>
+            <div className="mt-3 text-rca-green font-medium text-sm">Apply now →</div>
           </div>
         </Link>
         <Link href="/login" className="group">
-          <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition border-2 border-transparent hover:border-rca-green">
-            <div className="text-rca-green text-4xl mb-4">🔐</div>
-            <h3 className="text-xl font-bold text-rca-black mb-2 group-hover:text-rca-green transition">Member Login</h3>
-            <p className="text-gray-600">Access your member portal, view payments, and manage your profile</p>
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-2 border-gray-200 hover:border-rca-green h-full flex flex-col">
+            <div className="text-rca-green text-3xl mb-3">🔐</div>
+            <h3 className="text-lg font-bold text-rca-black mb-2 group-hover:text-rca-green transition">Member Login</h3>
+            <p className="text-gray-600 text-sm flex-grow">Access your member portal, view payments, and manage your profile.</p>
+            <div className="mt-3 text-rca-green font-medium text-sm">Sign in →</div>
           </div>
         </Link>
       </div>
