@@ -155,6 +155,10 @@ function MemberForm({ membershipType, onSubmitted }: {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    
+    // Prevent double submission
+    if (submitting) return;
+    
     setSubmitting(true);
     setError('');
 
@@ -169,9 +173,11 @@ function MemberForm({ membershipType, onSubmitted }: {
 
       if (!response.ok) {
         setError(data.error || 'Application failed. Please try again.');
+        setSubmitting(false);
         return;
       }
 
+      // Success - show success screen (don't reset submitting to prevent re-submit)
       onSubmitted({
         autoApproved: data.autoApproved,
         requiresPayment: data.requiresPayment,
@@ -179,7 +185,6 @@ function MemberForm({ membershipType, onSubmitted }: {
       });
     } catch {
       setError('Something went wrong. Please try again.');
-    } finally {
       setSubmitting(false);
     }
   }

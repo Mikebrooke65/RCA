@@ -206,8 +206,12 @@ export async function POST(request: NextRequest) {
       message: 'Application submitted! We\'ll review it and be in touch soon.',
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Application error:', error);
-    return NextResponse.json({ error: 'Failed to process application' }, { status: 500 });
+    // Return more specific error for debugging
+    const errorMessage = error?.message || error?.toString() || 'Unknown error';
+    return NextResponse.json({ 
+      error: `Failed to process application: ${errorMessage}` 
+    }, { status: 500 });
   }
 }
