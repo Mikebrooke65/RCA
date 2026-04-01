@@ -22,13 +22,20 @@ function SuccessContent() {
           Payment Successful!
         </h1>
         
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 mb-4">
           Thank you for your payment. Your membership is now active.
         </p>
         
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
+          <p className="text-sm font-medium text-blue-800 mb-2">📧 Set Up Your Password</p>
+          <p className="text-sm text-blue-700">
+            Check your email (including junk folder) for a link to set up your password. You&apos;ll need this to log in to the member portal.
+          </p>
+        </div>
+        
         {sessionId && (
-          <p className="text-xs text-gray-400 mb-6">
-            Session ID: {sessionId}
+          <p className="text-xs text-gray-400 mb-4">
+            Reference: {sessionId.slice(-8)}
           </p>
         )}
         

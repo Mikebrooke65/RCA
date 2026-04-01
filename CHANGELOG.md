@@ -287,3 +287,29 @@ All notable changes to this project will be documented in this file.
 - Enhanced update details page to show email and address (read-only)
 - Added contact email for address/email change requests
 - Cleaner layout with editable fields (name, phone) separated from read-only fields
+
+
+### Session 7 - 2026-04-02
+
+#### End-to-End Testing Complete 🎉
+- First real member signup completed successfully
+- Full flow tested: Apply → Stripe Payment → Email → Password Setup → Login → Admin Access
+- Real $10 payment processed through Stripe live mode
+
+#### Bug Fixes
+- Fixed double-submit bug on apply form (was showing "email already registered" after successful submission)
+- Fixed Stripe secret key in Netlify (was using pk_live instead of sk_live)
+- Created new Stripe API key "RCA Website" for production
+- Improved error messages in apply API to show actual error details
+
+#### UX Improvements
+- Added email reminder box to payment success page ("Check your email to set up your password")
+- Shortened session ID display on success page (shows last 8 chars only)
+
+#### Delete Member Script
+- Fixed corrupted delete_member.sql script
+- Script now properly cleans up: payments, admins, members, households
+
+#### Production Status
+- System is now fully live at riverheadcommunity.org.nz
+- Ready for real member signups
