@@ -8,7 +8,13 @@
 5. [x] Set up Stripe for live payments ✅
 6. [x] Clean up test data from database ✅
 7. [x] Test full flow with real members ✅
-8. [ ] Invite existing members to join
+8. [ ] Navigation cleanup:
+   - Clean up nav bar styling (black bars look messy, need button separation)
+   - Remove "Apply", "My Portal", "Admin" from header - not needed
+   - Admin users: add "Portal" link in admin nav bar
+   - Member users: add "Admin" link in member nav bar (if admin)
+   - Add stats cards in header: "No. Members" and "No. Households"
+9. [ ] Invite existing members to join
 
 ## 🎉 SYSTEM IS LIVE
 - First real member signup completed (2026-04-02)
