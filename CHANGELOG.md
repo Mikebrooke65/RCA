@@ -266,6 +266,13 @@ All notable changes to this project will be documented in this file.
 - Tested payment flow with test card (4242 4242 4242 4242) - checkout and webhook working
 - Payment records updating correctly in database
 
+#### Stripe Go-Live
+- Completed Stripe account activation (business details, bank account, identity verification)
+- Switched from sandbox to live mode
+- Created live webhook endpoint with events: checkout.session.completed, payment_intent.succeeded, payment_intent.payment_failed
+- Updated STRIPE_WEBHOOK_SECRET in Netlify
+- Deployed to production - ready for real payments
+
 #### Audit Logging Wired Up
 - Added audit logging to all admin actions:
   - Member approval (member_approved)

@@ -39,7 +39,7 @@ function HomeContent() {
   }, [router]);
 
   return (
-    <Layout>
+    <Layout showNav={false}>
       {/* Hero */}
       <div className="text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-bold text-rca-black mb-4">Welcome to Riverhead</h1>

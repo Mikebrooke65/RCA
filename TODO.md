@@ -5,16 +5,17 @@
 2. [x] Customise Supabase email templates to look like RCA emails ✅
 3. [x] Wire audit logging to actual actions ✅
 4. [x] Update contact details form (member portal) ✅
-5. [ ] Set up Stripe bank account for real payments
+5. [x] Set up Stripe for live payments ✅
 6. [ ] Clean up test data from database
-7. [ ] Test full auto-approval flow on production end-to-end
+7. [ ] Test full flow with real members
 
-## 🔜 Before Going Live
-- [ ] Stripe bank account configured (for payouts)
+## 🔜 Before Going Live - ALL DONE ✅
+- [x] Stripe account activated and live ✅
+- [x] Stripe bank account configured (for payouts) ✅
+- [x] Live webhook configured in Stripe Dashboard ✅
 - [x] Custom SMTP configured (emails from noreply@riverheadcommunity.org.nz) ✅
-- [x] Stripe webhook configured in Stripe Dashboard (production URL) ✅
 - [ ] Test data cleaned up
-- [ ] Facebook App configured (optional)
+- [ ] Facebook App configured (optional - not required for launch)
 
 ## ✅ Completed
 
@@ -67,8 +68,14 @@
 - [x] Apply and Login cards
 - [x] Public announcements section
 
-## 🤔 Open Questions
-- Can lapsed members rejoin without reapplying?
-- What happens when a household moves address?
-- Do we need IRD-compliant donation receipts?
-- Should audit logs include member self-service actions?
+## 🤔 Open Questions - RESOLVED
+- ~~Can lapsed members rejoin without reapplying?~~ → Yes, they can always log in but system shows outstanding fees. Facebook access removed for non-payers.
+- ~~What happens when a household moves address?~~ → Manual process - member contacts admin (handled in update details page)
+- ~~Do we need IRD-compliant donation receipts?~~ → Yes, for donations (not membership fees). Add to future work.
+- ~~Should audit logs include member self-service actions?~~ → Yes, add audit logging to member update actions.
+
+## 📋 Future Work
+- [ ] Donation receipts (IRD-compliant) for donation payments
+- [x] Add audit logging to member self-service changes (profile updates) ✅
+- [ ] Facebook integration - disconnect non-paying members from group access
+- [ ] Show outstanding fees prominently on member dashboard for lapsed members

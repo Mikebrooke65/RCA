@@ -231,9 +231,30 @@ See TODO.md for complete task breakdown
 - Tested payment flow with test card (4242 4242 4242 4242) - working
 - Webhook receiving events correctly
 
+### Audit Logging
+- Wired audit logging to all admin actions (approve, decline, reconcile, announcements, documents, membership years)
+- All actions now log before/after values for compliance
+
+### Member Portal
+- Enhanced update details form to show email and address (read-only)
+- Added contact email for address/email change requests
+
+### Stripe Go-Live
+- Completed Stripe account activation (business details, bank account, identity verification)
+- Switched from sandbox to live mode
+- Created live webhook endpoint
+- Updated webhook secret in Netlify
+- Deployed to production
+
 ### Status
 - Custom SMTP: ✅ Working
 - Email templates: ✅ Branded
 - Password reset: ✅ Tested
-- Stripe payments: ✅ Tested (test mode)
-- Stripe webhook: ✅ Configured
+- Stripe payments: ✅ Live mode ready
+- Stripe webhook: ✅ Live configured
+- Audit logging: ✅ Wired up
+- Member update form: ✅ Enhanced
+
+### Ready for Production
+- System is now ready for real member signups and payments
+- Next: Clean up test data, then test with real members
