@@ -38,8 +38,11 @@ export default function ForgotPasswordPage() {
             </svg>
           </div>
           <h2 className="text-xl font-bold text-rca-black mb-3">Email Sent!</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 mb-4">
             If an account exists for <strong>{email}</strong>, you'll receive a password reset link shortly.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            Please allow a few minutes for the email to arrive. Check your spam or junk folder if you don't see it in your inbox.
           </p>
           <Link href="/login" className="text-rca-green hover:underline text-sm">
             Back to Login
