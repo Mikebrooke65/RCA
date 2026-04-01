@@ -217,3 +217,23 @@ See TODO.md for complete task breakdown
 3. Create forgot password page
 4. Wire audit logging to actions
 5. Clean up test data
+
+
+### Session 6 - April 1, 2026
+
+### Custom SMTP & Email Templates
+- Configured custom SMTP in Supabase using riverheadcommunity.org.nz domain
+- Customised Supabase email templates with RCA branding (invite, password reset)
+- Tested password reset flow end-to-end - emails sending correctly from noreply@riverheadcommunity.org.nz
+
+### Stripe Production Setup
+- Configured production webhook endpoint in Stripe Dashboard
+- Tested payment flow with test card (4242 4242 4242 4242) - working
+- Webhook receiving events correctly
+
+### Status
+- Custom SMTP: ✅ Working
+- Email templates: ✅ Branded
+- Password reset: ✅ Tested
+- Stripe payments: ✅ Tested (test mode)
+- Stripe webhook: ✅ Configured

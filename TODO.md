@@ -1,19 +1,19 @@
 # RCA Membership System - TODO
 
 ## 🚀 Next Up
-1. [ ] Configure custom SMTP in Supabase (use riverheadcommunity.org.nz)
-2. [ ] Customise Supabase email templates to look like RCA emails
-3. [ ] Wire audit logging to actual actions
-4. [ ] Update contact details form (member portal)
+1. [x] Configure custom SMTP in Supabase (use riverheadcommunity.org.nz) ✅
+2. [x] Customise Supabase email templates to look like RCA emails ✅
+3. [x] Wire audit logging to actual actions ✅
+4. [x] Update contact details form (member portal) ✅
 5. [ ] Set up Stripe bank account for real payments
 6. [ ] Clean up test data from database
 7. [ ] Test full auto-approval flow on production end-to-end
 
 ## 🔜 Before Going Live
-- [ ] Stripe bank account configured
-- [ ] Custom SMTP configured (emails from noreply@riverheadcommunity.org.nz)
+- [ ] Stripe bank account configured (for payouts)
+- [x] Custom SMTP configured (emails from noreply@riverheadcommunity.org.nz) ✅
+- [x] Stripe webhook configured in Stripe Dashboard (production URL) ✅
 - [ ] Test data cleaned up
-- [ ] Stripe webhook configured in Stripe Dashboard (production URL)
 - [ ] Facebook App configured (optional)
 
 ## ✅ Completed

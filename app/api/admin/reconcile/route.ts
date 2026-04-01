@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/client';
+import { logAudit } from '@/lib/audit';
 
 interface ASBTransaction {
   date: string;
@@ -71,7 +72,12 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // TODO: Log reconciliation to audit trail
+    // Log reconciliation to audit trail
+    await logAudit({
+      actionType: 'payment_reconciliation',
+      entityType: 'payment',
+      afterValue: { matched, unmatched, total_transactions: transactions.length },
+    });
 
     return NextResponse.json({ matched, unmatched });
   } catch (error) {

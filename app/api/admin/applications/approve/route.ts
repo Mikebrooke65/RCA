@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/client';
 import { createCheckoutSession } from '@/lib/stripe';
+import { logAudit } from '@/lib/audit';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,6 +16,8 @@ export async function POST(request: NextRequest) {
     if (!member) {
       return NextResponse.json({ error: 'Member not found' }, { status: 404 });
     }
+
+    const beforeStatus = member.membership_status;
 
     // Update member status
     await supabaseAdmin
@@ -79,6 +82,15 @@ export async function POST(request: NextRequest) {
           payment_status: 'exempt',
         });
     }
+
+    // Log to audit trail
+    await logAudit({
+      actionType: 'member_approved',
+      entityType: 'member',
+      entityId: memberId,
+      beforeValue: { membership_status: beforeStatus },
+      afterValue: { membership_status: 'active', email: member.email, name: `${member.first_name} ${member.last_name}` },
+    });
 
     return NextResponse.json({ 
       success: true,

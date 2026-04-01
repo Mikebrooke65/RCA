@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/client';
+import { logAudit } from '@/lib/audit';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +25,14 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  await logAudit({
+    actionType: 'document_uploaded',
+    entityType: 'document',
+    entityId: data.id,
+    afterValue: { title, category, file_name },
+  });
+
   return NextResponse.json({ document: data });
 }
 
@@ -31,17 +40,40 @@ export async function PATCH(request: NextRequest) {
   const body = await request.json();
   const { id, title, description, category } = body;
 
+  // Get before value
+  const { data: before } = await supabaseAdmin
+    .from('documents')
+    .select('title, category')
+    .eq('id', id)
+    .single();
+
   const { error } = await supabaseAdmin
     .from('documents')
     .update({ title, description, category, updated_at: new Date().toISOString() })
     .eq('id', id);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  await logAudit({
+    actionType: 'document_updated',
+    entityType: 'document',
+    entityId: id,
+    beforeValue: before,
+    afterValue: { title, category },
+  });
+
   return NextResponse.json({ success: true });
 }
 
 export async function DELETE(request: NextRequest) {
   const { id, file_path } = await request.json();
+
+  // Get before value
+  const { data: before } = await supabaseAdmin
+    .from('documents')
+    .select('title, file_name')
+    .eq('id', id)
+    .single();
 
   // Delete from storage
   await supabaseAdmin.storage.from('documents').remove([file_path]);
@@ -49,5 +81,13 @@ export async function DELETE(request: NextRequest) {
   // Delete from database
   const { error } = await supabaseAdmin.from('documents').delete().eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  await logAudit({
+    actionType: 'document_deleted',
+    entityType: 'document',
+    entityId: id,
+    beforeValue: before,
+  });
+
   return NextResponse.json({ success: true });
 }

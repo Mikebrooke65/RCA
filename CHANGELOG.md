@@ -252,3 +252,31 @@ All notable changes to this project will be documented in this file.
 - Admins can add new membership years (April 1 - March 31)
 - Created /api/admin/membership-years API (GET, POST, PATCH)
 - 2026-2027 year created in database with $10 fee
+
+
+### Session 6 - 2026-04-01
+
+#### Custom SMTP & Email Templates
+- Configured custom SMTP in Supabase using riverheadcommunity.org.nz domain
+- Customised Supabase email templates with RCA branding
+- Tested password reset flow - emails sending correctly from noreply@riverheadcommunity.org.nz
+
+#### Stripe Production Setup
+- Configured production webhook endpoint in Stripe Dashboard (riverheadcommunity.org.nz/api/webhooks/stripe)
+- Tested payment flow with test card (4242 4242 4242 4242) - checkout and webhook working
+- Payment records updating correctly in database
+
+#### Audit Logging Wired Up
+- Added audit logging to all admin actions:
+  - Member approval (member_approved)
+  - Member decline (member_declined)
+  - Payment reconciliation (payment_reconciliation)
+  - Announcement create/update/delete
+  - Document upload/update/delete
+  - Membership year create and fee updates
+- All actions now log before/after values for compliance
+
+#### Member Update Details Form
+- Enhanced update details page to show email and address (read-only)
+- Added contact email for address/email change requests
+- Cleaner layout with editable fields (name, phone) separated from read-only fields

@@ -10,6 +10,8 @@ export default function UpdateDetailsPage() {
   const router = useRouter();
   const [token, setToken] = useState('');
   const [form, setForm] = useState({ first_name: '', last_name: '', phone: '' });
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
@@ -31,6 +33,8 @@ export default function UpdateDetailsPage() {
           last_name: data.member.last_name || '',
           phone: data.member.phone || '',
         });
+        setEmail(data.member.email || '');
+        setAddress(data.member.households?.normalized_address || '');
       }
       setLoading(false);
     }
@@ -95,8 +99,30 @@ export default function UpdateDetailsPage() {
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-rca-green focus:border-transparent"
                 placeholder="e.g. 021 123 4567" />
             </div>
+
+            <div className="border-t pt-4 mt-4">
+              <h3 className="text-sm font-medium text-gray-700 mb-3">Contact Information (Read Only)</h3>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Email Address</label>
+                  <div className="px-3 py-2 bg-gray-50 border rounded-lg text-gray-600">{email}</div>
+                </div>
+                {address && (
+                  <div>
+                    <label className="block text-xs text-gray-500 mb-1">Address</label>
+                    <div className="px-3 py-2 bg-gray-50 border rounded-lg text-gray-600">{address}</div>
+                  </div>
+                )}
+              </div>
+              <p className="text-xs text-gray-500 mt-3">
+                To change your email or address, please contact us at{' '}
+                <a href="mailto:membership@riverheadcommunity.org.nz" className="text-rca-green hover:underline">
+                  membership@riverheadcommunity.org.nz
+                </a>
+              </p>
+            </div>
+
             <div className="pt-2">
-              <p className="text-xs text-gray-500 mb-4">To change your email address, please contact us directly.</p>
               <button type="submit" disabled={saving}
                 className="w-full bg-rca-green text-white py-3 rounded-lg font-medium hover:bg-rca-green-dark transition disabled:bg-gray-400">
                 {saving ? 'Saving...' : 'Save Changes'}
