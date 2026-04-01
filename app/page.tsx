@@ -1,10 +1,11 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import AnnouncementCard from '@/components/AnnouncementCard';
 import Link from 'next/link';
+import { supabaseBrowser } from '@/lib/supabase/browser';
 
 interface Announcement {
   id: string;
@@ -17,15 +18,25 @@ interface Announcement {
 
 function HomeContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const message = searchParams.get('message');
   const error = searchParams.get('error');
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 
   useEffect(() => {
+    // Listen for auth events - redirect to reset password if recovery
+    const { data: { subscription } } = supabaseBrowser.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        router.push('/reset-password');
+      }
+    });
+
     fetch('/api/announcements')
       .then(res => res.json())
       .then(data => setAnnouncements(data.announcements || []));
-  }, []);
+
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   return (
     <Layout>
