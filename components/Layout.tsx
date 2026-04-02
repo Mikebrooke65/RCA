@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import LogoutButton from './LogoutButton';
 
 interface LayoutProps {
@@ -9,6 +12,17 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, title, showNav = true }: LayoutProps) {
+  const [stats, setStats] = useState<{ members: number; households: number } | null>(null);
+
+  useEffect(() => {
+    if (showNav) {
+      fetch('/api/admin/stats')
+        .then(res => res.json())
+        .then(data => setStats({ members: data.totalMembers || 0, households: data.totalHouseholds || 0 }))
+        .catch(() => {});
+    }
+  }, [showNav]);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -32,14 +46,23 @@ export default function Layout({ children, title, showNav = true }: LayoutProps)
               </div>
             </Link>
 
-            {/* Navigation */}
+            {/* Stats Cards + Logout */}
             {showNav && (
-              <div className="flex items-center space-x-6">
-                <nav className="hidden md:flex space-x-6">
-                  <Link href="/apply" className="text-gray-700 hover:text-rca-green transition">Apply</Link>
-                  <Link href="/member" className="text-gray-700 hover:text-rca-green transition">My Portal</Link>
-                  <Link href="/admin" className="text-gray-700 hover:text-rca-green transition">Admin</Link>
-                </nav>
+              <div className="flex items-center space-x-4">
+                {stats && (
+                  <>
+                    <div className="hidden sm:flex items-center space-x-3">
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2 text-center">
+                        <div className="text-lg font-bold text-emerald-700">{stats.members}</div>
+                        <div className="text-xs text-emerald-600">Members</div>
+                      </div>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 text-center">
+                        <div className="text-lg font-bold text-blue-700">{stats.households}</div>
+                        <div className="text-xs text-blue-600">Households</div>
+                      </div>
+                    </div>
+                  </>
+                )}
                 <LogoutButton />
               </div>
             )}
@@ -48,7 +71,6 @@ export default function Layout({ children, title, showNav = true }: LayoutProps)
       </header>
 
       {/* Page Title */}
-
       {title && (
         <div className="bg-rca-green text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -58,7 +80,7 @@ export default function Layout({ children, title, showNav = true }: LayoutProps)
       )}
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         {children}
       </main>
 

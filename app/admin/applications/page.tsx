@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
+import AdminNav from '@/components/AdminNav';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 
 interface Application {
@@ -67,12 +68,14 @@ export default function ApplicationsPage() {
 
   if (loading) return (
     <Layout title="Pending Applications">
+      <AdminNav />
       <div className="text-center py-12 text-gray-500">Loading...</div>
     </Layout>
   );
 
   return (
     <Layout title="Pending Applications">
+      <AdminNav />
       <div className="max-w-4xl mx-auto">
         <div className="mb-4 flex items-center justify-between">
           <p className="text-gray-600">{applications.length} application{applications.length !== 1 ? 's' : ''} pending</p>

@@ -2,40 +2,63 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { supabaseBrowser } from '@/lib/supabase/browser';
 
 const navItems = [
-  { href: '/member', label: 'Dashboard', icon: '🏠' },
-  { href: '/member/household', label: 'Household', icon: '👨‍👩‍👧' },
-  { href: '/member/payments', label: 'Payments', icon: '💳' },
-  { href: '/member/documents', label: 'Documents', icon: '📄' },
-  { href: '/member/update', label: 'My Details', icon: '✏️' },
+  { href: '/member', label: 'Dashboard' },
+  { href: '/member/household', label: 'Household' },
+  { href: '/member/payments', label: 'Payments' },
+  { href: '/member/documents', label: 'Documents' },
+  { href: '/member/update', label: 'My Details' },
 ];
 
 export default function MemberNav() {
   const pathname = usePathname();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    async function checkAdmin() {
+      const { data: { session } } = await supabaseBrowser.auth.getSession();
+      
+      if (session?.access_token) {
+        const res = await fetch('/api/auth/check-role', {
+          headers: { 'Authorization': `Bearer ${session.access_token}` }
+        });
+        const data = await res.json();
+        setIsAdmin(data.isAdmin);
+      }
+    }
+    checkAdmin();
+  }, []);
 
   return (
-    <nav className="bg-rca-black text-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex overflow-x-auto">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center space-x-1 px-4 py-3 text-sm whitespace-nowrap border-b-2 transition ${
-                  isActive
-                    ? 'border-rca-green text-rca-green'
-                    : 'border-transparent text-gray-300 hover:text-white hover:border-gray-500'
-                }`}
-              >
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
+    <nav className="mb-6">
+      <div className="inline-flex items-center gap-1 py-2 px-2 bg-emerald-800 rounded-lg overflow-x-auto">
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`px-4 py-2 text-sm font-medium rounded transition min-w-[100px] text-center ${
+                isActive
+                  ? 'bg-white text-emerald-800'
+                  : 'bg-emerald-700 text-white hover:bg-emerald-600'
+              }`}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+        {isAdmin && (
+          <Link
+            href="/admin"
+            className="px-4 py-2 text-sm font-medium rounded bg-slate-600 text-white hover:bg-slate-500 transition min-w-[100px] text-center"
+          >
+            Admin →
+          </Link>
+        )}
       </div>
     </nav>
   );

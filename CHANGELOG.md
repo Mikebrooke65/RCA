@@ -313,3 +313,20 @@ All notable changes to this project will be documented in this file.
 #### Production Status
 - System is now fully live at riverheadcommunity.org.nz
 - Ready for real member signups
+
+
+### Session 7 continued - 2026-04-02
+
+#### Navigation Cleanup
+- Redesigned AdminNav and MemberNav components with cleaner styling
+- Nav bars now use rounded button groups with gaps between buttons
+- Admin nav: slate gray background, green active state, "Portal →" link
+- Member nav: emerald green background, white active state, "Admin →" link (if admin)
+- Removed "Apply", "My Portal", "Admin" links from header
+- Added Members and Households stat cards to header (top right)
+- Added AdminNav to admin dashboard and applications pages (were missing)
+- Fixed households count query in stats API
+
+#### Stats API
+- Added totalHouseholds count to /api/admin/stats endpoint
+- Stats now displayed in header on all authenticated pages

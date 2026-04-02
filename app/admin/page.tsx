@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
+import AdminNav from '@/components/AdminNav';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 
 interface DashboardStats {
@@ -39,12 +40,14 @@ export default function AdminDashboard() {
 
   if (loading) return (
     <Layout title="Admin Dashboard">
+      <AdminNav />
       <div className="text-center py-12 text-gray-500">Loading...</div>
     </Layout>
   );
 
   return (
     <Layout title="Admin Dashboard">
+      <AdminNav />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <StatCard title="Total Members" value={stats?.totalMembers || 0} />
         <StatCard title="Pending Applications" value={stats?.pendingApplications || 0} color="yellow" />

@@ -8,13 +8,19 @@
 5. [x] Set up Stripe for live payments ✅
 6. [x] Clean up test data from database ✅
 7. [x] Test full flow with real members ✅
-8. [ ] Navigation cleanup:
-   - Clean up nav bar styling (black bars look messy, need button separation)
-   - Remove "Apply", "My Portal", "Admin" from header - not needed
-   - Admin users: add "Portal" link in admin nav bar
-   - Member users: add "Admin" link in member nav bar (if admin)
-   - Add stats cards in header: "No. Members" and "No. Households"
-9. [ ] Invite existing members to join
+8. [x] Navigation cleanup ✅
+   - Clean up nav bar styling (rounded buttons with gaps)
+   - Remove "Apply", "My Portal", "Admin" from header
+   - Admin users: "Portal →" link in admin nav bar
+   - Member users: "Admin →" link in member nav bar (if admin)
+   - Stats cards in header: Members and Households counts
+9. [ ] Donations System:
+   - Donation page (accessible from member portal)
+   - Variable amount donations via Stripe
+   - IRD-compliant donation receipts (automatic PDF generation)
+   - Donation history in member portal
+   - Admin reporting on donations received
+10. [ ] Invite existing members to join
 
 ## 🎉 SYSTEM IS LIVE
 - First real member signup completed (2026-04-02)
@@ -27,7 +33,7 @@
 - [x] Custom SMTP configured (emails from noreply@riverheadcommunity.org.nz) ✅
 - [x] Test data cleaned up ✅
 - [x] End-to-end testing complete ✅
-- [ ] Facebook App configured (optional - not required for launch)
+- [x] Facebook integration (manual tracking - API not needed) ✅
 
 ## ✅ Completed
 
@@ -87,7 +93,6 @@
 - ~~Should audit logs include member self-service actions?~~ → Yes, add audit logging to member update actions.
 
 ## 📋 Future Work
-- [ ] Donation receipts (IRD-compliant) for donation payments
 - [x] Add audit logging to member self-service changes (profile updates) ✅
 - [x] Facebook integration - manual tracking of FB group membership ✅
 - [x] Facebook cleanup report for lapsed members ✅
