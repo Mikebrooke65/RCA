@@ -3,18 +3,23 @@ import { supabaseAdmin } from '@/lib/supabase/client';
 
 export const dynamic = 'force-dynamic';
 
-// Public endpoint - returns public announcements for landing page
-// Pass ?members=true with auth token for member-only announcements
+// Public endpoint - returns announcements based on context
+// No params = public announcements for landing page
+// ?members=true = member-only announcements for portal
 export async function GET(request: NextRequest) {
   const membersOnly = request.nextUrl.searchParams.get('members') === 'true';
   
   let query = supabaseAdmin
     .from('announcements')
-    .select('id, title, content, image_url, is_public, published_at')
+    .select('id, title, content, image_url, is_public, show_members, published_at')
     .eq('is_published', true)
     .order('published_at', { ascending: false });
 
-  if (!membersOnly) {
+  if (membersOnly) {
+    // Member portal - show announcements where show_members = true
+    query = query.eq('show_members', true);
+  } else {
+    // Public landing page - show announcements where is_public = true
     query = query.eq('is_public', true);
   }
 

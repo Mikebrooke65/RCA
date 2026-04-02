@@ -11,11 +11,12 @@ interface Announcement {
   content: string;
   image_url?: string;
   is_public: boolean;
+  show_members: boolean;
   is_published: boolean;
   published_at: string;
 }
 
-const empty = { title: '', content: '', image_url: '', is_public: true, is_published: true };
+const empty = { title: '', content: '', image_url: '', is_public: false, show_members: true, is_published: true };
 
 export default function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -120,16 +121,16 @@ export default function AnnouncementsPage() {
               </div>
               <div className="flex gap-6">
                 <label className="flex items-center gap-2 text-sm cursor-pointer">
-                  <input type="checkbox" checked={editing.is_public ?? true}
+                  <input type="checkbox" checked={editing.is_public ?? false}
                     onChange={(e) => setEditing({ ...editing, is_public: e.target.checked })}
                     className="rounded" />
-                  Show on public landing page
+                  Show on Public Page
                 </label>
                 <label className="flex items-center gap-2 text-sm cursor-pointer">
-                  <input type="checkbox" checked={editing.is_published ?? true}
-                    onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })}
+                  <input type="checkbox" checked={editing.show_members ?? true}
+                    onChange={(e) => setEditing({ ...editing, show_members: e.target.checked })}
                     className="rounded" />
-                  Published
+                  Show on Members Portal
                 </label>
               </div>
               <div className="flex gap-3">
@@ -154,9 +155,9 @@ export default function AnnouncementsPage() {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-semibold text-rca-black">{a.title}</h3>
-                    {!a.is_published && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Draft</span>}
-                    {a.is_public ? <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Public</span>
-                      : <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Members only</span>}
+                    {a.is_public && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Public</span>}
+                    {a.show_members && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Members</span>}
+                    {!a.is_public && !a.show_members && <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Hidden</span>}
                   </div>
                   <p className="text-sm text-gray-600 line-clamp-2">{a.content}</p>
                   <p className="text-xs text-gray-400 mt-2">{new Date(a.published_at).toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
