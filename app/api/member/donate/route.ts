@@ -47,7 +47,6 @@ export async function POST(request: NextRequest) {
             currency: 'nzd',
             product_data: {
               name: 'Donation to Riverhead Community Association',
-              description: 'Tax-deductible donation',
             },
             unit_amount: Math.round(amount * 100),
           },
