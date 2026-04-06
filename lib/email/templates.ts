@@ -38,7 +38,13 @@ export const templates = {
     subject: 'Payment Received - RCA',
     body: `Hi ${firstName},\n\nThank you! We've received your payment of $${amount.toFixed(2)}.\n\nDownload your receipt: ${receiptUrl}\n\nKind regards,\nRCA Membership Team`,
   }),
+
+  donationReceived: (name: string, amount: number, receiptNumber: string, date: string): EmailTemplate => ({
+    subject: 'Thank You for Your Donation - RCA',
+    body: `Hi ${name},\n\nThank you for your generous donation to the Riverhead Community Association!\n\nDonation Details:\n- Amount: $${amount.toFixed(2)} NZD\n- Date: ${date}\n- Receipt Number: ${receiptNumber}\n\nYour support helps us continue building a stronger community in Riverhead.\n\nKind regards,\nRCA Membership Team`,
+  }),
 };
+
 
 export async function sendEmail(to: string, template: EmailTemplate, memberId?: string) {
   try {

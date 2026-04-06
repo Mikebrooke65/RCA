@@ -15,8 +15,16 @@
    - Stripe checkout integration
    - Donation card on Friend signup success
    - Donation link in member nav bar
+   - Donation receipt emails sent after payment
    - Note: NOT tax-deductible (RCA not registered as charity)
-10. [ ] Invite existing members to join
+10. [x] Admin Email Broadcast System ✅
+    - /admin/emails page for sending bulk emails
+    - Send to All, Members only, or Friends only
+    - Email composer with subject, body, optional image
+    - RCA logo header option
+    - Preview mode
+    - All emails logged to communication_log
+11. [ ] Invite existing members to join
 
 ## 🎉 SYSTEM IS LIVE
 - First real member signup completed (2026-04-02)

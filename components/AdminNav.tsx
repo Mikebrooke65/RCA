@@ -10,6 +10,7 @@ const navItems = [
   { href: '/admin/payments', label: 'Payments', icon: '💳' },
   { href: '/admin/renewals', label: 'Renewals', icon: '🔄' },
   { href: '/admin/announcements', label: 'Announcements', icon: '📢' },
+  { href: '/admin/emails', label: 'Emails', icon: '✉️' },
   { href: '/admin/documents', label: 'Documents', icon: '📁' },
   { href: '/admin/audit', label: 'Audit', icon: '📝' },
 ];

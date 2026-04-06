@@ -351,3 +351,31 @@ See TODO.md for complete task breakdown
 - Donations system complete
 - Ready for beta testing
 - Next: Invite existing members to join
+
+
+### Session 8 - April 7, 2026
+
+### Donation Receipt Emails
+- Added donationReceived email template
+- Stripe webhook now sends receipt email after donation payment
+- Receipt includes donor name, amount, date, and receipt number
+- Receipt number format: DON-{timestamp}
+
+### Admin Email Broadcast System
+- Created /admin/emails page for bulk email sending
+- Features:
+  - Recipient selection: All, Members only, or Friends only
+  - Live recipient counts displayed
+  - Subject and body fields
+  - Optional image URL
+  - RCA logo header toggle
+  - Preview mode before sending
+  - Confirmation dialog with recipient count
+- HTML email template with RCA branding
+- All emails logged to communication_log table
+- Added "Emails" link to admin nav bar
+
+### Status
+- Donation receipts: ✅ Complete
+- Admin email broadcast: ✅ Complete
+- Next: Invite existing members to join

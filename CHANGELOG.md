@@ -358,3 +358,22 @@ All notable changes to this project will be documented in this file.
 - Removed "tax-deductible" wording from all donation text
 - RCA is not registered as a charity with IRD, so donations are NOT tax-deductible
 - Simple thank-you receipts will be sent (not IRD-compliant)
+
+
+### Session 8 - 2026-04-07
+
+#### Donation Receipt Emails
+- Added donationReceived email template to lib/email/templates.ts
+- Updated Stripe webhook to send donation receipt email after payment
+- Receipt includes: donor name, amount, date, receipt number
+- Receipt number generated as DON-{timestamp}
+
+#### Admin Email Broadcast System
+- Created /admin/emails page for sending bulk emails
+- Recipient selection: All, Members only, or Friends only (with live counts)
+- Email composer with subject, body, optional image URL
+- RCA logo header toggle
+- Live preview mode
+- HTML email template with RCA branding and footer
+- All sent emails logged to communication_log table
+- Added "Emails" link to admin nav bar with ✉️ icon
