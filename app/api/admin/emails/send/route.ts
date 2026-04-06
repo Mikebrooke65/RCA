@@ -10,9 +10,7 @@ type RecipientGroup = 'all' | 'members' | 'friends';
 function buildEmailHtml(subject: string, body: string, imageUrl: string | null, includeLogo: boolean): string {
   const logoHtml = includeLogo ? `
     <div style="text-align: center; margin-bottom: 24px;">
-      <div style="display: inline-block; background-color: #2E7D32; color: white; padding: 12px 24px; border-radius: 8px; font-weight: bold; font-size: 24px;">
-        RCA
-      </div>
+      <img src="https://riverheadcommunity.org.nz/images/logo.jpg" alt="RCA" style="width: 80px; height: 80px; border-radius: 8px;" />
       <p style="color: #666; font-size: 14px; margin-top: 8px;">Riverhead Community Association</p>
     </div>
   ` : '';

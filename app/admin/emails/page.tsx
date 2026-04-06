@@ -206,9 +206,7 @@ export default function AdminEmailsPage() {
             <div className="border rounded-lg p-6 bg-gray-50">
               {includeLogo && (
                 <div className="text-center mb-6">
-                  <div className="inline-block bg-rca-green text-white px-6 py-3 rounded-lg font-bold text-xl">
-                    RCA
-                  </div>
+                  <img src="/images/logo.jpg" alt="RCA" className="w-20 h-20 rounded-lg mx-auto" />
                   <p className="text-sm text-gray-600 mt-2">Riverhead Community Association</p>
                 </div>
               )}
