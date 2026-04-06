@@ -1,0 +1,16 @@
+{
+  "name": "Riverhead Community Association",
+  "short_name": "RCA",
+  "description": "Riverhead Community Association Member Portal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2E7D32",
+  "icons": [
+    {
+      "src": "/images/logo.jpg",
+      "sizes": "any",
+      "type": "image/jpeg"
+    }
+  ]
+}
