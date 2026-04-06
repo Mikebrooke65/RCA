@@ -3,19 +3,19 @@ import { supabaseAdmin } from '@/lib/supabase/client';
 
 export async function GET() {
   try {
-    // Count full members (approved, not friends)
+    // Count full members (active, full_member type)
     const { count: membersCount } = await supabaseAdmin
       .from('members')
       .select('*', { count: 'exact', head: true })
-      .eq('membership_status', 'approved')
-      .eq('is_friend', false);
+      .eq('membership_status', 'active')
+      .eq('membership_type', 'full_member');
 
     // Count friends
     const { count: friendsCount } = await supabaseAdmin
       .from('members')
       .select('*', { count: 'exact', head: true })
-      .eq('membership_status', 'approved')
-      .eq('is_friend', true);
+      .eq('membership_status', 'active')
+      .eq('membership_type', 'friend');
 
     const members = membersCount || 0;
     const friends = friendsCount || 0;

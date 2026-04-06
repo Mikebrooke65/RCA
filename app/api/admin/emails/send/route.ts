@@ -38,7 +38,7 @@ function buildEmailHtml(subject: string, body: string, imageUrl: string | null, 
       ${bodyHtml}
       <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #eee; text-align: center; font-size: 14px; color: #666;">
         <p style="margin: 0;">Riverhead Community Association</p>
-        <p style="margin: 4px 0;"><a href="https://rca.org.nz" style="color: #2E7D32;">rca.org.nz</a></p>
+        <p style="margin: 4px 0;"><a href="https://riverheadcommunity.org.nz" style="color: #2E7D32;">riverheadcommunity.org.nz</a></p>
       </div>
     </body>
     </html>
@@ -57,12 +57,12 @@ export async function POST(request: NextRequest) {
     let query = supabaseAdmin
       .from('members')
       .select('id, email, first_name')
-      .eq('membership_status', 'approved');
+      .eq('membership_status', 'active');
 
     if (recipients === 'members') {
-      query = query.eq('is_friend', false);
+      query = query.eq('membership_type', 'full_member');
     } else if (recipients === 'friends') {
-      query = query.eq('is_friend', true);
+      query = query.eq('membership_type', 'friend');
     }
 
     const { data: recipientList, error } = await query;
