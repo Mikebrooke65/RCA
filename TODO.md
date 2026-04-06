@@ -9,17 +9,13 @@
 6. [x] Clean up test data from database ✅
 7. [x] Test full flow with real members ✅
 8. [x] Navigation cleanup ✅
-   - Clean up nav bar styling (rounded buttons with gaps)
-   - Remove "Apply", "My Portal", "Admin" from header
-   - Admin users: "Portal →" link in admin nav bar
-   - Member users: "Admin →" link in member nav bar (if admin)
-   - Stats cards in header: Members and Households counts
-9. [ ] Donations System:
-   - Donation page (accessible from member portal)
-   - Variable amount donations via Stripe
-   - IRD-compliant donation receipts (automatic PDF generation)
-   - Donation history in member portal
-   - Admin reporting on donations received
+9. [x] Donations System ✅
+   - Public donation page (/donate) for anyone
+   - Member donation page (/member/donate) for logged-in members
+   - Stripe checkout integration
+   - Donation card on Friend signup success
+   - Donation link in member nav bar
+   - Note: NOT tax-deductible (RCA not registered as charity)
 10. [ ] Invite existing members to join
 
 ## 🎉 SYSTEM IS LIVE

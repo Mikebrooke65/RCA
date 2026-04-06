@@ -22,21 +22,34 @@ export async function POST(request: NextRequest) {
       case 'checkout.session.completed': {
         const session = event.data.object;
         const memberId = session.metadata?.member_id;
+        const paymentType = session.metadata?.type;
 
         if (memberId) {
-          await supabaseAdmin
-            .from('payments')
-            .update({
-              payment_status: 'paid',
-              stripe_checkout_session_id: session.id,
-              stripe_payment_intent_id: session.payment_intent as string,
-              payment_date: new Date().toISOString(),
-            })
-            .eq('member_id', memberId)
-            .eq('payment_status', 'unpaid');
-
-          // TODO: Send payment confirmation email
-          // TODO: Log to audit trail
+          if (paymentType === 'donation') {
+            // Handle donation payment
+            await supabaseAdmin
+              .from('donations')
+              .update({
+                payment_status: 'completed',
+                stripe_payment_intent_id: session.payment_intent as string,
+                payment_date: new Date().toISOString(),
+              })
+              .eq('stripe_session_id', session.id);
+            
+            // TODO: Generate and send IRD-compliant receipt
+          } else {
+            // Handle membership payment
+            await supabaseAdmin
+              .from('payments')
+              .update({
+                payment_status: 'paid',
+                stripe_checkout_session_id: session.id,
+                stripe_payment_intent_id: session.payment_intent as string,
+                payment_date: new Date().toISOString(),
+              })
+              .eq('member_id', memberId)
+              .eq('payment_status', 'unpaid');
+          }
         }
         break;
       }

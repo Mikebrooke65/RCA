@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { href: '/admin', label: 'Dashboard' },
-  { href: '/admin/applications', label: 'Applications' },
-  { href: '/admin/members', label: 'Members' },
-  { href: '/admin/payments', label: 'Payments' },
-  { href: '/admin/renewals', label: 'Renewals' },
-  { href: '/admin/announcements', label: 'Announcements' },
-  { href: '/admin/documents', label: 'Documents' },
-  { href: '/admin/audit', label: 'Audit' },
+  { href: '/admin', label: 'Dashboard', icon: '🏠' },
+  { href: '/admin/applications', label: 'Applications', icon: '📋' },
+  { href: '/admin/members', label: 'Members', icon: '👥' },
+  { href: '/admin/payments', label: 'Payments', icon: '💳' },
+  { href: '/admin/renewals', label: 'Renewals', icon: '🔄' },
+  { href: '/admin/announcements', label: 'Announcements', icon: '📢' },
+  { href: '/admin/documents', label: 'Documents', icon: '📁' },
+  { href: '/admin/audit', label: 'Audit', icon: '📝' },
 ];
 
 export default function AdminNav() {
@@ -26,21 +26,23 @@ export default function AdminNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`px-4 py-2 text-sm font-medium rounded transition min-w-[100px] text-center ${
+              className={`px-3 py-2 text-sm font-medium rounded transition min-w-[90px] text-center flex items-center justify-center gap-1 ${
                 isActive
                   ? 'bg-rca-green text-white'
                   : 'bg-slate-600 text-gray-200 hover:bg-slate-500'
               }`}
             >
-              {item.label}
+              <span>{item.icon}</span>
+              <span>{item.label}</span>
             </Link>
           );
         })}
         <Link
           href="/member"
-          className="px-4 py-2 text-sm font-medium rounded bg-emerald-700 text-white hover:bg-emerald-600 transition min-w-[100px] text-center"
+          className="px-3 py-2 text-sm font-medium rounded bg-emerald-700 text-white hover:bg-emerald-600 transition min-w-[90px] text-center flex items-center justify-center gap-1"
         >
-          Portal →
+          <span>👤</span>
+          <span>Portal</span>
         </Link>
       </div>
     </nav>

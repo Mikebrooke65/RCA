@@ -318,3 +318,36 @@ See TODO.md for complete task breakdown
 - Navigation cleanup complete
 - Ready for beta testers to try the signup flow
 - Next: Donations system, then bulk member invite
+
+
+### Session 7 continued - April 2, 2026 (Donations)
+
+### Donations System Built
+- Created /donate page (public, no login required)
+- Created /member/donate page (for logged-in members)
+- Stripe checkout integration for variable amounts
+- Preset buttons ($10, $20, $50, $100) plus custom amount
+- Donation success pages with receipt notification
+
+### Navigation Improvements
+- Added icons to all nav buttons (admin and member)
+- Added Facebook and Donate to member nav bar
+- Removed duplicate cards from member dashboard (Household, Payments, Documents, Update Details)
+- Everything now accessible from nav bar - cleaner UI
+
+### Announcements Enhancement
+- Separate "Show on Public Page" and "Show on Members Portal" checkboxes
+- Can show announcement on both, one, or neither
+- Fixed issue where deleted announcements were still showing
+
+### Tax-Deductible Decision
+- Discussed IRD donee organisation requirements
+- RCA would need to register as charity with Charities Services NZ
+- Decided not to pursue - too much work
+- Removed all "tax-deductible" wording from donation pages
+- Will send simple thank-you receipts instead
+
+### Status
+- Donations system complete
+- Ready for beta testing
+- Next: Invite existing members to join

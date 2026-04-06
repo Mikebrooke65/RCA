@@ -330,3 +330,31 @@ All notable changes to this project will be documented in this file.
 #### Stats API
 - Added totalHouseholds count to /api/admin/stats endpoint
 - Stats now displayed in header on all authenticated pages
+
+
+### Session 7 continued - 2026-04-02 (Donations)
+
+#### Donations System
+- Created public donation page at /donate (no login required)
+- Created member donation page at /member/donate (for logged-in members)
+- Added Stripe checkout integration for donations
+- Added donation card on Friend signup success screen
+- Added donation mention on Full Member signup success screen
+- Added Donate link to member nav bar with icon
+- Updated Stripe webhook to handle donation payments
+- Created donations database migration (payment_method, payment_status, stripe_session_id columns)
+
+#### Navigation Updates
+- Added icons to all nav bar buttons (both admin and member)
+- Added Facebook and Donate links to member nav bar
+- Removed duplicate portal link cards from member dashboard (now all in nav)
+
+#### Announcements Fix
+- Added separate checkboxes for "Show on Public Page" and "Show on Members Portal"
+- Announcements can now appear on both, one, or neither
+- Added show_members column to announcements table
+
+#### Important Note
+- Removed "tax-deductible" wording from all donation text
+- RCA is not registered as a charity with IRD, so donations are NOT tax-deductible
+- Simple thank-you receipts will be sent (not IRD-compliant)

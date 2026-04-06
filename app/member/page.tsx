@@ -100,48 +100,7 @@ export default function MemberPortal() {
             </div>
           </div>
         )}
-
-        {/* Portal Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <PortalLink href="/member/household" icon="🏠" title="Household Members" desc="View others at your address" />
-          <PortalLink href="/member/payments" icon="💳" title="Payment History" desc="View your payments and receipts" />
-          <PortalLink href="/member/documents" icon="📄" title="Documents" desc="Minutes, constitution and more" />
-          <PortalLink href="/member/update" icon="✏️" title="Update Details" desc="Update your contact information" />
-        </div>
-
-        {/* Facebook Group */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-5">
-          <div className="flex items-center space-x-3">
-            <span className="text-2xl">📘</span>
-            <div className="flex-grow">
-              <p className="font-semibold text-blue-900">Join our Facebook Group</p>
-              <p className="text-sm text-blue-700">Connect with other Riverhead community members</p>
-            </div>
-            <a 
-              href="https://www.facebook.com/share/g/17SFKoqsSj/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
-            >
-              Join Group
-            </a>
-          </div>
-        </div>
       </div>
     </Layout>
-  );
-}
-
-function PortalLink({ href, icon, title, desc }: { href: string; icon: string; title: string; desc: string }) {
-  return (
-    <a href={href} className="block p-5 bg-white rounded-lg border hover:border-rca-green hover:shadow-md transition group">
-      <div className="flex items-center space-x-3">
-        <span className="text-2xl">{icon}</span>
-        <div>
-          <p className="font-semibold text-rca-black group-hover:text-rca-green transition">{title}</p>
-          <p className="text-sm text-gray-500">{desc}</p>
-        </div>
-      </div>
-    </a>
   );
 }

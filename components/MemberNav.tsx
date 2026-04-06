@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 
 const navItems = [
-  { href: '/member', label: 'Dashboard' },
-  { href: '/member/household', label: 'Household' },
-  { href: '/member/payments', label: 'Payments' },
-  { href: '/member/documents', label: 'Documents' },
-  { href: '/member/update', label: 'My Details' },
+  { href: '/member', label: 'Dashboard', icon: '🏠' },
+  { href: '/member/household', label: 'Household', icon: '👨‍👩‍👧' },
+  { href: '/member/payments', label: 'Payments', icon: '💳' },
+  { href: '/member/documents', label: 'Documents', icon: '📄' },
+  { href: '/member/update', label: 'My Details', icon: '✏️' },
+  { href: '/member/donate', label: 'Donate', icon: '💝' },
+  { href: 'https://www.facebook.com/share/g/17SFKoqsSj/', label: 'Facebook', icon: '📘', external: true },
 ];
 
 export default function MemberNav() {
@@ -37,26 +39,45 @@ export default function MemberNav() {
       <div className="inline-flex items-center gap-1 py-2 px-2 bg-emerald-800 rounded-lg overflow-x-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
+          const isExternal = 'external' in item && item.external;
+          
+          if (isExternal) {
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 text-sm font-medium rounded transition min-w-[90px] text-center bg-emerald-700 text-white hover:bg-emerald-600 flex items-center justify-center gap-1"
+              >
+                <span>{item.icon}</span>
+                <span>{item.label}</span>
+              </a>
+            );
+          }
+          
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`px-4 py-2 text-sm font-medium rounded transition min-w-[100px] text-center ${
+              className={`px-3 py-2 text-sm font-medium rounded transition min-w-[90px] text-center flex items-center justify-center gap-1 ${
                 isActive
                   ? 'bg-white text-emerald-800'
                   : 'bg-emerald-700 text-white hover:bg-emerald-600'
               }`}
             >
-              {item.label}
+              <span>{item.icon}</span>
+              <span>{item.label}</span>
             </Link>
           );
         })}
         {isAdmin && (
           <Link
             href="/admin"
-            className="px-4 py-2 text-sm font-medium rounded bg-slate-600 text-white hover:bg-slate-500 transition min-w-[100px] text-center"
+            className="px-3 py-2 text-sm font-medium rounded bg-slate-600 text-white hover:bg-slate-500 transition min-w-[90px] text-center flex items-center justify-center gap-1"
           >
-            Admin →
+            <span>⚙️</span>
+            <span>Admin</span>
           </Link>
         )}
       </div>

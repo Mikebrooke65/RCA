@@ -46,6 +46,13 @@ export default function ApplyPage() {
                   </a>
                 </div>
               )}
+
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-left">
+                <p className="text-sm font-medium text-amber-800 mb-2">💝 Want to Support RCA?</p>
+                <p className="text-sm text-amber-700">
+                  You can make donations anytime from your Member Portal.
+                </p>
+              </div>
             </>
           ) : (
             <>
@@ -58,6 +65,19 @@ export default function ApplyPage() {
                 <p className="text-sm text-blue-700">
                   We&apos;ll review your application and send you an email within a few days. Keep an eye on your inbox (and junk folder).
                 </p>
+              </div>
+              
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-left">
+                <p className="text-sm font-medium text-amber-800 mb-2">💝 Want to Support RCA?</p>
+                <p className="text-sm text-amber-700 mb-3">
+                  While Friend membership is free, you can make a donation to support the Riverhead community.
+                </p>
+                <a
+                  href="/donate"
+                  className="inline-block bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition text-sm font-medium"
+                >
+                  Make a Donation →
+                </a>
               </div>
             </>
           )}
