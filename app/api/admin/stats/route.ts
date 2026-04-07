@@ -21,6 +21,10 @@ export async function GET() {
       activeFriends: friends.count || 0,
       unpaidRenewals: unpaid.count || 0,
       totalHouseholds: households.count || 0,
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+      },
     });
   } catch (error) {
     console.error('Stats error:', error);
