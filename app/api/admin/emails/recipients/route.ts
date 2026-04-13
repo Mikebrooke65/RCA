@@ -24,6 +24,8 @@ export async function GET() {
       all: members + friends,
       members,
       friends,
+    }, {
+      headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' },
     });
   } catch (error) {
     console.error('Failed to fetch recipient counts:', error);

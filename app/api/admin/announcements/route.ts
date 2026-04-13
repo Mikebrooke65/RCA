@@ -11,7 +11,9 @@ export async function GET() {
     .order('created_at', { ascending: false });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ announcements: data || [] });
+  return NextResponse.json({ announcements: data || [] }, {
+    headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' },
+  });
 }
 
 export async function POST(request: NextRequest) {

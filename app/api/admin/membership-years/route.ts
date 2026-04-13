@@ -11,7 +11,9 @@ export async function GET() {
     .order('year_start', { ascending: false });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ years: data });
+  return NextResponse.json({ years: data }, {
+    headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' },
+  });
 }
 
 export async function POST(request: NextRequest) {

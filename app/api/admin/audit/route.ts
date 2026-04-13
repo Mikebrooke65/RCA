@@ -23,7 +23,9 @@ export async function GET(request: NextRequest) {
 
     if (error) throw error;
 
-    return NextResponse.json({ logs });
+    return NextResponse.json({ logs }, {
+      headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' },
+    });
   } catch (error) {
     console.error('Fetch audit log error:', error);
     return NextResponse.json({ error: 'Failed to fetch audit log' }, { status: 500 });
