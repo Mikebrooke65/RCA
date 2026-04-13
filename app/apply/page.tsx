@@ -32,21 +32,6 @@ export default function ApplyPage() {
                 </p>
               </div>
 
-              {submitted.requiresPayment && submitted.paymentLink && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-left">
-                  <p className="text-sm font-medium text-yellow-800 mb-2">💳 Payment Required</p>
-                  <p className="text-sm text-yellow-700 mb-3">
-                    A $10 annual membership fee applies to your household. You can pay now or later from your member portal.
-                  </p>
-                  <a
-                    href={submitted.paymentLink}
-                    className="inline-block bg-rca-green text-white px-6 py-2 rounded-lg hover:bg-rca-green-dark transition text-sm font-medium"
-                  >
-                    Pay $10 Now →
-                  </a>
-                </div>
-              )}
-
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-left">
                 <p className="text-sm font-medium text-amber-800 mb-2">💝 Want to Support RCA?</p>
                 <p className="text-sm text-amber-700">
@@ -109,7 +94,7 @@ export default function ApplyPage() {
               <li>✓ Voting rights at AGM</li>
               <li>✓ Access to members-only area</li>
               <li>✓ Facebook group access</li>
-              <li>✓ $10 per household per year</li>
+              <li>✓ $10 per household per year (paid on signup)</li>
             </ul>
           </div>
 
@@ -197,7 +182,13 @@ function MemberForm({ membershipType, onSubmitted }: {
         return;
       }
 
-      // Success - show success screen (don't reset submitting to prevent re-submit)
+      // Success - show success screen or redirect to payment
+      if (data.autoApproved && data.paymentLink) {
+        // Redirect straight to Stripe checkout - payment is required
+        window.location.href = data.paymentLink;
+        return;
+      }
+
       onSubmitted({
         autoApproved: data.autoApproved,
         requiresPayment: data.requiresPayment,
@@ -308,7 +299,7 @@ function MemberForm({ membershipType, onSubmitted }: {
         disabled={submitting}
         className="w-full bg-rca-green text-white py-3 rounded-lg font-medium hover:bg-rca-green-dark transition disabled:bg-gray-400"
       >
-        {submitting ? 'Submitting...' : 'Submit Application'}
+        {submitting ? 'Submitting...' : membershipType === 'full_member' ? 'Submit & Pay $10' : 'Submit Application'}
       </button>
     </form>
   );
