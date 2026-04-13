@@ -32,6 +32,8 @@ export default function MemberPortal() {
   const router = useRouter();
   const [member, setMember] = useState<MemberData | null>(null);
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [unpaidAmount, setUnpaidAmount] = useState<number | null>(null);
+  const [payingNow, setPayingNow] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,22 +41,47 @@ export default function MemberPortal() {
       const { data: { session } } = await supabaseBrowser.auth.getSession();
       if (!session) { router.push('/login'); return; }
 
-      const [profileRes, announcementsRes] = await Promise.all([
+      const [profileRes, announcementsRes, paymentsRes] = await Promise.all([
         fetch('/api/member/profile', { headers: { Authorization: `Bearer ${session.access_token}` } }),
         fetch('/api/announcements?members=true'),
+        fetch('/api/member/payments', { headers: { Authorization: `Bearer ${session.access_token}` } }),
       ]);
 
       if (profileRes.status === 401) { router.push('/login'); return; }
 
       const profileData = await profileRes.json();
       const announcementsData = await announcementsRes.json();
+      const paymentsData = await paymentsRes.json();
 
       setMember(profileData.member);
       setAnnouncements(announcementsData.announcements || []);
+      
+      // Check for unpaid payments
+      const unpaid = (paymentsData.payments || []).find((p: any) => p.payment_status === 'unpaid');
+      if (unpaid) setUnpaidAmount(unpaid.amount);
+      
       setLoading(false);
     }
     loadProfile();
   }, [router]);
+
+  async function handlePayNow() {
+    if (!member) return;
+    setPayingNow(true);
+    try {
+      const res = await fetch('/api/member/payment-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ memberId: member.id }),
+      });
+      const data = await res.json();
+      if (data.paymentLink) {
+        window.location.href = data.paymentLink;
+      }
+    } catch {
+      setPayingNow(false);
+    }
+  }
 
   if (loading) return (
     <Layout title="Member Portal">
@@ -69,6 +96,24 @@ export default function MemberPortal() {
     <Layout title={`Welcome, ${member.first_name}!`}>
       <MemberNav />
       <div className="max-w-4xl mx-auto space-y-6 mt-6">
+        {/* Unpaid Payment Banner */}
+        {unpaidAmount && (
+          <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <p className="text-lg font-bold text-red-800">⚠️ Membership Fee Outstanding</p>
+                <p className="text-red-700">Your ${unpaidAmount.toFixed(2)} annual membership fee has not been paid.</p>
+              </div>
+              <button
+                onClick={handlePayNow}
+                disabled={payingNow}
+                className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition disabled:opacity-50 whitespace-nowrap"
+              >
+                {payingNow ? 'Redirecting...' : `Pay $${unpaidAmount.toFixed(2)} Now`}
+              </button>
+            </div>
+          </div>
+        )}
         {/* Profile Card */}
         <div className="bg-white rounded-lg p-6 shadow-sm border">
           <h2 className="text-lg font-semibold text-rca-black mb-4">Your Details</h2>

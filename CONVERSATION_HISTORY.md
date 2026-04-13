@@ -379,3 +379,36 @@ See TODO.md for complete task breakdown
 - Donation receipts: ✅ Complete
 - Admin email broadcast: ✅ Complete
 - Next: Invite existing members to join
+
+
+### Session 9 - April 14, 2026
+
+### Launch Progress
+- 10 members signed up, 7 households
+- 4 households paid, 3 outstanding (signed up before mandatory payment fix)
+- Stripe automatic payouts enabled
+- Claire Walker added as admin
+
+### Fixes Applied
+- Fixed stale data on admin pages - added no-cache headers to all admin API endpoints
+- Fixed email broadcast recipient counts - was querying non-existent `is_friend` column, changed to `membership_type`
+- Enabled RLS on all 9 tables missing it (Supabase security warning resolved)
+- Added PWA support - members can install site as app on phone
+- Updated email broadcast to show actual RCA logo in header
+
+### Signup Flow Improvement
+- Full members now redirect straight to Stripe checkout - payment is mandatory, not optional
+- Button says "Submit & Pay $10"
+- Payment success page has bigger email notice warning about junk folder
+- Shows sender address (noreply@riverheadcommunity.org.nz)
+
+### Unpaid Payment Banner
+- Member portal shows red banner for members with outstanding fees
+- Includes "Pay Now" button that redirects to Stripe
+- Only shows for full members with unpaid records
+
+### Status
+- System live with real members
+- Mandatory payment flow in place
+- 3 members need chasing for payment (pre-fix signups)
+- Facebook group invite sent out

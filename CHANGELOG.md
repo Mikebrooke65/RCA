@@ -377,3 +377,42 @@ All notable changes to this project will be documented in this file.
 - HTML email template with RCA branding and footer
 - All sent emails logged to communication_log table
 - Added "Emails" link to admin nav bar with ✉️ icon
+
+### Session 9 - 2026-04-14
+
+#### Caching Fixes
+- Added no-cache headers to all admin API GET endpoints (stats, members, applications, announcements, documents, audit, membership years, email recipients)
+- Fixed stale data issue where member/household counts weren't updating
+
+#### Email Recipients Fix
+- Fixed email broadcast recipient query - was using non-existent `is_friend` column
+- Changed to use `membership_type` (full_member/friend) and `membership_status` (active)
+
+#### RLS Security
+- Enabled Row Level Security on all 9 public tables missing it (households, membership_years, admins, audit_log, communication_log, email_templates, announcements, donations, documents)
+- Resolved Supabase critical security warning
+
+#### PWA Support
+- Added web app manifest and service worker
+- Site can now be installed as an app on mobile devices
+- Uses RCA logo as app icon
+
+#### Email Logo
+- Updated admin email broadcast to use actual RCA logo image in header
+
+#### Mandatory Payment on Signup
+- Full members now redirect straight to Stripe checkout after submitting application
+- No more optional payment link - payment is part of the signup flow
+- Submit button now says "Submit & Pay $10" for full members
+- Payment success page has bigger, more prominent email notice (check junk folder warning)
+
+#### Unpaid Payment Banner
+- Member portal now shows red banner for members with outstanding payments
+- Banner includes pay now button that redirects to Stripe checkout
+- Only shows for full members with unpaid records (friends unaffected)
+
+#### Stripe Payouts
+- Switched Stripe from manual to automatic payouts
+
+#### Claire Walker Admin
+- Added Claire Walker (claire@wla.net.nz) as super_admin
